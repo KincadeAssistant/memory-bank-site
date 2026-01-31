@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Bank — Vault Concepts</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0A0A0B;
+      color: #FAFAFA;
+      padding: 60px 24px;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: 2.5rem; margin-bottom: 8px; }
+    h1 span { color: #D4AF37; }
+    .subtitle { color: #71717A; margin-bottom: 48px; }
+    h2 { font-size: 1.25rem; margin: 48px 0 16px; color: #A1A1AA; }
+    p { color: #71717A; margin-bottom: 24px; line-height: 1.6; }
+    
+    .logo-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    
+    .logo-card {
+      background: #18181B;
+      border: 1px solid #27272A;
+      border-radius: 20px;
+      padding: 48px;
+      text-align: center;
+    }
+    
+    .logo-card.dark { background: #0A0A0B; }
+    .logo-card.light { background: #FAFAFA; }
+    
+    .logo-card svg { max-width: 100%; height: auto; margin-bottom: 20px; }
+    
+    .logo-label {
+      font-size: 0.75rem;
+      color: #71717A;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .logo-card.light .logo-label { color: #71717A; }
+    
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 20px;
+    }
+    
+    .icon-card { text-align: center; }
+    
+    .icon-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 22px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .icon-preview svg { width: 60px; height: 60px; }
+    
+    .winner {
+      border: 2px solid #D4AF37;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Vault + <span>Growth</span></h1>
+    <p class="subtitle">The security of a vault combined with the trajectory of growth</p>
+
+    <!-- Concept 1: Vault with Growth Bars Inside -->
+    <h2>Concept 1: Vault Window Reveals Growth</h2>
+    <p>A vault door with a window showing ascending bars inside — your memories are secure AND growing.</p>
+    <div class="logo-row">
+      <div class="logo-card dark winner">
+        <svg viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#D4AF37"/>
+              <stop offset="100%" style="stop-color:#F4D775"/>
+            </linearGradient>
+          </defs>
+          <!-- Vault outline -->
+          <rect x="8" y="8" width="64" height="64" rx="10" stroke="url(#gold1)" stroke-width="4" fill="none"/>
+          <!-- Inner window/circle showing growth -->
+          <circle cx="40" cy="40" r="20" stroke="url(#gold1)" stroke-width="2" fill="#0A0A0B"/>
+          <!-- Growth bars inside circle -->
+          <rect x="26" y="48" width="6" height="10" rx="1" fill="url(#gold1)" opacity="0.5"/>
+          <rect x="34" y="42" width="6" height="16" rx="1" fill="url(#gold1)" opacity="0.7"/>
+          <rect x="42" y="34" width="6" height="24" rx="1" fill="url(#gold1)" opacity="0.85"/>
+          <rect x="50" y="26" width="6" height="32" rx="1" fill="url(#gold1)"/>
+          <!-- Vault handle -->
+          <line x1="64" y1="40" x2="68" y2="40" stroke="url(#gold1)" stroke-width="3" stroke-linecap="round"/>
+          <!-- Text -->
+          <text x="88" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#FAFAFA">Memory</text>
+          <text x="178" y="48" font-family="DM Serif Display, serif" font-size="22" fill="url(#gold1)">Bank</text>
+        </svg>
+        <div class="logo-label">⭐ Recommended</div>
+      </div>
+      <div class="logo-card light">
+        <svg viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="8" width="64" height="64" rx="10" stroke="#D4AF37" stroke-width="4" fill="none"/>
+          <circle cx="40" cy="40" r="20" stroke="#D4AF37" stroke-width="2" fill="#FAFAFA"/>
+          <rect x="26" y="48" width="6" height="10" rx="1" fill="#D4AF37" opacity="0.5"/>
+          <rect x="34" y="42" width="6" height="16" rx="1" fill="#D4AF37" opacity="0.7"/>
+          <rect x="42" y="34" width="6" height="24" rx="1" fill="#D4AF37" opacity="0.85"/>
+          <rect x="50" y="26" width="6" height="32" rx="1" fill="#D4AF37"/>
+          <line x1="64" y1="40" x2="68" y2="40" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+          <text x="88" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#0A0A0B">Memory</text>
+          <text x="178" y="48" font-family="DM Serif Display, serif" font-size="22" fill="#D4AF37">Bank</text>
+        </svg>
+        <div class="logo-label">Light Background</div>
+      </div>
+    </div>
+
+    <!-- Concept 2: Vault Dial as Growth -->
+    <h2>Concept 2: Vault Dial Shows Progress</h2>
+    <p>The vault dial doubles as a progress meter — unlocking more value as you grow.</p>
+    <div class="logo-row">
+      <div class="logo-card dark">
+        <svg viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#D4AF37"/>
+              <stop offset="100%" style="stop-color:#F4D775"/>
+            </linearGradient>
+          </defs>
+          <!-- Vault outline -->
+          <rect x="8" y="8" width="64" height="64" rx="10" stroke="url(#gold2)" stroke-width="4" fill="none"/>
+          <!-- Dial circle -->
+          <circle cx="40" cy="40" r="22" stroke="#3F3F46" stroke-width="6" fill="none"/>
+          <!-- Progress arc (growth) -->
+          <circle cx="40" cy="40" r="22" stroke="url(#gold2)" stroke-width="6" fill="none" 
+                  stroke-dasharray="100 138" stroke-dashoffset="35" stroke-linecap="round"/>
+          <!-- Center dot -->
+          <circle cx="40" cy="40" r="4" fill="url(#gold2)"/>
+          <!-- Dial pointer pointing up-right (growth direction) -->
+          <line x1="40" y1="40" x2="54" y2="26" stroke="url(#gold2)" stroke-width="3" stroke-linecap="round"/>
+          <!-- Text -->
+          <text x="88" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#FAFAFA">Memory</text>
+          <text x="178" y="48" font-family="DM Serif Display, serif" font-size="22" fill="url(#gold2)">Bank</text>
+        </svg>
+        <div class="logo-label">Dark Background</div>
+      </div>
+      <div class="logo-card light">
+        <svg viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="8" width="64" height="64" rx="10" stroke="#D4AF37" stroke-width="4" fill="none"/>
+          <circle cx="40" cy="40" r="22" stroke="#E4E4E7" stroke-width="6" fill="none"/>
+          <circle cx="40" cy="40" r="22" stroke="#D4AF37" stroke-width="6" fill="none" 
+                  stroke-dasharray="100 138" stroke-dashoffset="35" stroke-linecap="round"/>
+          <circle cx="40" cy="40" r="4" fill="#D4AF37"/>
+          <line x1="40" y1="40" x2="54" y2="26" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+          <text x="88" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#0A0A0B">Memory</text>
+          <text x="178" y="48" font-family="DM Serif Display, serif" font-size="22" fill="#D4AF37">Bank</text>
+        </svg>
+        <div class="logo-label">Light Background</div>
+      </div>
+    </div>
+
+    <!-- Concept 3: Open Vault Door Revealing Growth -->
+    <h2>Concept 3: Vault Door Ajar</h2>
+    <p>A vault door slightly open, revealing the growth inside — inviting you to see your worth.</p>
+    <div class="logo-row">
+      <div class="logo-card dark">
+        <svg viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#D4AF37"/>
+              <stop offset="100%" style="stop-color:#F4D775"/>
+            </linearGradient>
+          </defs>
+          <!-- Back wall with bars -->
+          <rect x="20" y="12" width="48" height="56" rx="4" fill="#27272A"/>
+          <rect x="28" y="48" width="6" height="14" rx="1" fill="url(#gold3)" opacity="0.5"/>
+          <rect x="36" y="40" width="6" height="22" rx="1" fill="url(#gold3)" opacity="0.7"/>
+          <rect x="44" y="30" width="6" height="32" rx="1" fill="url(#gold3)" opacity="0.85"/>
+          <rect x="52" y="20" width="6" height="42" rx="1" fill="url(#gold3)"/>
+          <!-- Door (angled open) -->
+          <path d="M8 8 L8 72 L28 68 L28 12 Z" fill="#18181B" stroke="url(#gold3)" stroke-width="3"/>
+          <!-- Door details -->
+          <ellipse cx="18" cy="40" rx="6" ry="8" stroke="url(#gold3)" stroke-width="2" fill="none"/>
+          <circle cx="18" cy="40" r="2" fill="url(#gold3)"/>
+          <!-- Text -->
+          <text x="80" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#FAFAFA">Memory</text>
+          <text x="170" y="48" font-family="DM Serif Display, serif" font-size="22" fill="url(#gold3)">Bank</text>
+        </svg>
+        <div class="logo-label">Dark Background</div>
+      </div>
+    </div>
+
+    <!-- Concept 4: Minimal Vault + Arrow -->
+    <h2>Concept 4: Vault + Growth Arrow</h2>
+    <p>Ultra-minimal: vault outline with a single growth arrow — security meets trajectory.</p>
+    <div class="logo-row">
+      <div class="logo-card dark">
+        <svg viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold4" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#D4AF37"/>
+              <stop offset="100%" style="stop-color:#F4D775"/>
+            </linearGradient>
+          </defs>
+          <!-- Vault outline -->
+          <rect x="8" y="8" width="64" height="64" rx="10" stroke="url(#gold4)" stroke-width="4" fill="none"/>
+          <!-- Simple growth arrow -->
+          <path d="M20 56 L40 36 L60 56" stroke="url(#gold4)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M40 36 L40 20" stroke="url(#gold4)" stroke-width="4" stroke-linecap="round"/>
+          <path d="M32 28 L40 20 L48 28" stroke="url(#gold4)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- Text -->
+          <text x="88" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#FAFAFA">Memory</text>
+          <text x="178" y="48" font-family="DM Serif Display, serif" font-size="22" fill="url(#gold4)">Bank</text>
+        </svg>
+        <div class="logo-label">Dark Background</div>
+      </div>
+      <div class="logo-card light">
+        <svg viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="8" width="64" height="64" rx="10" stroke="#D4AF37" stroke-width="4" fill="none"/>
+          <path d="M20 56 L40 36 L60 56" stroke="#D4AF37" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M40 36 L40 20" stroke="#D4AF37" stroke-width="4" stroke-linecap="round"/>
+          <path d="M32 28 L40 20 L48 28" stroke="#D4AF37" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <text x="88" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#0A0A0B">Memory</text>
+          <text x="178" y="48" font-family="DM Serif Display, serif" font-size="22" fill="#D4AF37">Bank</text>
+        </svg>
+        <div class="logo-label">Light Background</div>
+      </div>
+    </div>
+
+    <!-- Concept 5: Safe with Stacking Bars -->
+    <h2>Concept 5: Classic Safe + Rising Bars</h2>
+    <p>Traditional safe aesthetic with bars rising out of it — your memories overflow with value.</p>
+    <div class="logo-row">
+      <div class="logo-card dark">
+        <svg viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold5" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#D4AF37"/>
+              <stop offset="100%" style="stop-color:#F4D775"/>
+            </linearGradient>
+          </defs>
+          <!-- Safe body -->
+          <rect x="8" y="24" width="52" height="48" rx="6" stroke="url(#gold5)" stroke-width="3" fill="none"/>
+          <!-- Handle -->
+          <circle cx="50" cy="48" r="8" stroke="url(#gold5)" stroke-width="2" fill="none"/>
+          <circle cx="50" cy="48" r="2" fill="url(#gold5)"/>
+          <!-- Rising bars coming out of top -->
+          <rect x="16" y="32" width="8" height="20" rx="2" fill="url(#gold5)" opacity="0.4"/>
+          <rect x="26" y="22" width="8" height="30" rx="2" fill="url(#gold5)" opacity="0.6"/>
+          <rect x="36" y="10" width="8" height="42" rx="2" fill="url(#gold5)" opacity="0.8"/>
+          <rect x="52" y="4" width="8" height="16" rx="2" fill="url(#gold5)"/>
+          <rect x="62" y="12" width="8" height="8" rx="2" fill="url(#gold5)" opacity="0.6"/>
+          <!-- Text -->
+          <text x="84" y="52" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#FAFAFA">Memory</text>
+          <text x="174" y="52" font-family="DM Serif Display, serif" font-size="22" fill="url(#gold5)">Bank</text>
+        </svg>
+        <div class="logo-label">Dark Background</div>
+      </div>
+    </div>
+
+    <!-- App Icons -->
+    <h2>App Icons / IG Profile</h2>
+    <div class="icon-grid">
+      <div class="icon-card">
+        <div class="icon-preview winner" style="background: linear-gradient(135deg, #D4AF37, #F4D775);">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Vault with bars inside -->
+            <rect x="15" y="15" width="70" height="70" rx="14" stroke="#0A0A0B" stroke-width="5" fill="none"/>
+            <circle cx="50" cy="50" r="24" stroke="#0A0A0B" stroke-width="3" fill="rgba(212,175,55,0.3)"/>
+            <rect x="32" y="58" width="8" height="14" rx="2" fill="#0A0A0B" opacity="0.5"/>
+            <rect x="42" y="50" width="8" height="22" rx="2" fill="#0A0A0B" opacity="0.7"/>
+            <rect x="52" y="40" width="8" height="32" rx="2" fill="#0A0A0B" opacity="0.85"/>
+            <rect x="62" y="30" width="8" height="42" rx="2" fill="#0A0A0B"/>
+          </svg>
+        </div>
+        <div class="logo-label">⭐ Vault + Bars</div>
+      </div>
+      <div class="icon-card">
+        <div class="icon-preview" style="background: #0A0A0B; border: 2px solid #D4AF37;">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="goldI1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#D4AF37"/>
+                <stop offset="100%" style="stop-color:#F4D775"/>
+              </linearGradient>
+            </defs>
+            <rect x="15" y="15" width="70" height="70" rx="14" stroke="url(#goldI1)" stroke-width="5" fill="none"/>
+            <circle cx="50" cy="50" r="24" stroke="url(#goldI1)" stroke-width="3" fill="none"/>
+            <rect x="32" y="58" width="8" height="14" rx="2" fill="url(#goldI1)" opacity="0.5"/>
+            <rect x="42" y="50" width="8" height="22" rx="2" fill="url(#goldI1)" opacity="0.7"/>
+            <rect x="52" y="40" width="8" height="32" rx="2" fill="url(#goldI1)" opacity="0.85"/>
+            <rect x="62" y="30" width="8" height="42" rx="2" fill="url(#goldI1)"/>
+          </svg>
+        </div>
+        <div class="logo-label">Dark + Gold</div>
+      </div>
+      <div class="icon-card">
+        <div class="icon-preview" style="background: linear-gradient(135deg, #D4AF37, #F4D775);">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Progress dial -->
+            <rect x="15" y="15" width="70" height="70" rx="14" stroke="#0A0A0B" stroke-width="5" fill="none"/>
+            <circle cx="50" cy="50" r="26" stroke="#0A0A0B" stroke-width="8" fill="none" opacity="0.3"/>
+            <circle cx="50" cy="50" r="26" stroke="#0A0A0B" stroke-width="8" fill="none" 
+                    stroke-dasharray="120 163" stroke-dashoffset="40" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="6" fill="#0A0A0B"/>
+            <line x1="50" y1="50" x2="68" y2="32" stroke="#0A0A0B" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="logo-label">Progress Dial</div>
+      </div>
+      <div class="icon-card">
+        <div class="icon-preview" style="background: linear-gradient(135deg, #D4AF37, #F4D775);">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Vault + arrow -->
+            <rect x="15" y="15" width="70" height="70" rx="14" stroke="#0A0A0B" stroke-width="5" fill="none"/>
+            <path d="M30 70 L50 45 L70 70" stroke="#0A0A0B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M50 45 L50 25" stroke="#0A0A0B" stroke-width="5" stroke-linecap="round"/>
+            <path d="M40 35 L50 25 L60 35" stroke="#0A0A0B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="logo-label">Vault + Arrow</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

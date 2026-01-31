@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Memory Bank - Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Dashboard Specific Styles */
+    .dashboard-header {
+      padding: var(--space-lg);
+      padding-top: 60px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .greeting {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .user-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .icon-btn svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text-secondary);
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 8px;
+      height: 8px;
+      background: var(--gold-primary);
+      border-radius: var(--radius-full);
+    }
+
+    /* Life Worth Card */
+    .life-worth-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .life-worth-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--gold-subtle) 0%, transparent 50%);
+      animation: pulse 4s ease infinite;
+    }
+
+    .life-worth-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+      position: relative;
+    }
+
+    .life-worth-value {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    .life-worth-change {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--success-bg);
+      border-radius: var(--radius-full);
+      color: var(--success);
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: var(--space-sm);
+      position: relative;
+    }
+
+    .worth-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border-subtle);
+      position: relative;
+    }
+
+    .worth-item {
+      text-align: center;
+    }
+
+    .worth-item-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .worth-item-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .worth-item-value.experience {
+      color: var(--gold-primary);
+    }
+
+    /* Growth Chart Section */
+    .section {
+      padding: 0 var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .section-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .section-link {
+      font-size: 0.875rem;
+      color: var(--gold-primary);
+      text-decoration: none;
+    }
+
+    /* Mini Chart */
+    .chart-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-md);
+    }
+
+    .chart-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .chart-period {
+      display: flex;
+      gap: var(--space-xs);
+    }
+
+    .period-btn {
+      padding: var(--space-xs) var(--space-sm);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .period-btn.active {
+      background: var(--gold-subtle);
+      color: var(--gold-primary);
+    }
+
+    .chart-container {
+      height: 120px;
+      position: relative;
+    }
+
+    .chart-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .chart-line {
+      fill: none;
+      stroke: var(--gold-primary);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .chart-area {
+      fill: url(#goldGradient);
+      opacity: 0.3;
+    }
+
+    .chart-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--space-sm);
+    }
+
+    .chart-label {
+      font-size: 0.625rem;
+      color: var(--text-muted);
+    }
+
+    /* Timeline */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .timeline-item:hover {
+      border-color: var(--gold-primary);
+      transform: translateX(4px);
+    }
+
+    .timeline-image {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-md);
+      background: var(--bg-tertiary);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+
+    .timeline-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .timeline-category {
+      margin-bottom: 4px;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .timeline-meta {
+      display: flex;
+      gap: var(--space-md);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-value {
+      text-align: right;
+    }
+
+    .timeline-value-amount {
+      font-weight: 600;
+      color: var(--gold-primary);
+      font-size: 1rem;
+    }
+
+    .timeline-value-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Quick Stats */
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      padding: var(--space-lg);
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+    }
+
+    .stat-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .stat-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .stat-icon.gold {
+      background: var(--gold-subtle);
+      color: var(--gold-primary);
+    }
+
+    .stat-icon.cyan {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--cat-travel);
+    }
+
+    .stat-icon.purple {
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--cat-concerts);
+    }
+
+    .stat-icon.pink {
+      background: rgba(236, 72, 153, 0.15);
+      color: var(--cat-milestones);
+    }
+
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 100px;
+      right: calc(50% - 185px);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="dashboard-header">
+      <div class="header-top">
+        <div>
+          <div class="greeting">Good evening</div>
+          <div class="user-name">Sarah Chen</div>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notification-dot"></span>
+          </button>
+          <div class="avatar">
+            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--cat-travel), var(--cat-concerts)); display: flex; align-items: center; justify-content: center; font-weight: 600;">SC</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Life Worth Card -->
+      <div class="life-worth-card animate-scale-in">
+        <div class="life-worth-label">Total Life Worth</div>
+        <div class="life-worth-value">$247,850</div>
+        <div class="life-worth-change">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M18 15l-6-6-6 6"/>
+          </svg>
+          +$12,450 this month
+        </div>
+        
+        <div class="worth-breakdown">
+          <div class="worth-item">
+            <div class="worth-item-label">Financial</div>
+            <div class="worth-item-value">$189,000</div>
+          </div>
+          <div class="worth-item">
+            <div class="worth-item-label">Experiences</div>
+            <div class="worth-item-value experience">$58,850</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-with-tabs">
+      <!-- Growth Chart -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Growth</h2>
+          <a href="05-portfolio.html" class="section-link">View Portfolio →</a>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-value">+$12,450</div>
+              <div class="body-sm" style="color: var(--success);">↑ 5.3% this month</div>
+            </div>
+            <div class="chart-period">
+              <button class="period-btn">1W</button>
+              <button class="period-btn active">1M</button>
+              <button class="period-btn">3M</button>
+              <button class="period-btn">1Y</button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <svg class="chart-svg" viewBox="0 0 340 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color: var(--gold-primary); stop-opacity: 0.4"/>
+                  <stop offset="100%" style="stop-color: var(--gold-primary); stop-opacity: 0"/>
+                </linearGradient>
+              </defs>
+              <path class="chart-area" d="M0,80 Q40,75 80,60 T160,45 T240,35 T320,20 L340,15 L340,100 L0,100 Z"/>
+              <path class="chart-line" d="M0,80 Q40,75 80,60 T160,45 T240,35 T320,20 L340,15"/>
+            </svg>
+          </div>
+          <div class="chart-labels">
+            <span class="chart-label">Jan 1</span>
+            <span class="chart-label">Jan 8</span>
+            <span class="chart-label">Jan 15</span>
+            <span class="chart-label">Jan 22</span>
+            <span class="chart-label">Today</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Stats -->
+      <div class="quick-stats">
+        <div class="stat-card">
+          <div class="stat-icon gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <div class="stat-value">47</div>
+          <div class="stat-label">Total Experiences</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="10" r="3"/>
+              <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/>
+            </svg>
+          </div>
+          <div class="stat-value">12</div>
+          <div class="stat-label">Countries Visited</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+          </div>
+          <div class="stat-value">23</div>
+          <div class="stat-label">Concerts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <div class="stat-value">8</div>
+          <div class="stat-label">Life Milestones</div>
+        </div>
+      </div>
+
+      <!-- Recent Experiences Timeline -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Recent Experiences</h2>
+          <a href="#" class="section-link">See All →</a>
+        </div>
+        <div class="timeline">
+          <a href="04-experience-detail.html" class="timeline-item">
+            <div class="timeline-image">🎸</div>
+            <div class="timeline-content">
+              <span class="category-tag category-concerts">Concerts</span>
+              <div class="timeline-title">Taylor Swift Eras Tour</div>
+              <div class="timeline-meta">
+                <span>SoFi Stadium, LA</span>
+              </div>
+            </div>
+            <div class="timeline-value">
+              <div class="timeline-value-amount">$3,200</div>
+              <div class="timeline-value-date">Jan 18</div>
+            </div>
+          </a>
+
+          <a href="04-experience-detail.html" class="timeline-item">
+            <div class="timeline-image">⚽</div>
+            <div class="timeline-content">
+              <span class="category-tag category-sports">Sports</span>
+              <div class="timeline-title">World Cup Final - Argentina vs France</div>
+              <div class="timeline-meta">
+                <span>Lusail Stadium, Qatar</span>
+              </div>
+            </div>
+            <div class="timeline-value">
+              <div class="timeline-value-amount">$8,500</div>
+              <div class="timeline-value-date">Dec 18</div>
+            </div>
+          </a>
+
+          <a href="04-experience-detail.html" class="timeline-item">
+            <div class="timeline-image">🗼</div>
+            <div class="timeline-content">
+              <span class="category-tag category-travel">Travel</span>
+              <div class="timeline-title">Anniversary in Paris</div>
+              <div class="timeline-meta">
+                <span>7 days • With Partner</span>
+              </div>
+            </div>
+            <div class="timeline-value">
+              <div class="timeline-value-amount">$4,850</div>
+              <div class="timeline-value-date">Nov 23</div>
+            </div>
+          </a>
+
+          <a href="04-experience-detail.html" class="timeline-item">
+            <div class="timeline-image">🎓</div>
+            <div class="timeline-content">
+              <span class="category-tag category-milestones">Milestone</span>
+              <div class="timeline-title">MBA Graduation</div>
+              <div class="timeline-meta">
+                <span>Stanford University</span>
+              </div>
+            </div>
+            <div class="timeline-value">
+              <div class="timeline-value-amount">$12,000</div>
+              <div class="timeline-value-date">Jun 15</div>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Floating Action Button -->
+    <a href="03-add-experience.html" class="fab">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </a>
+
+    <!-- Tab Bar -->
+    <nav class="tab-bar">
+      <a href="02-dashboard.html" class="tab-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span class="tab-label">Home</span>
+      </a>
+      <a href="05-portfolio.html" class="tab-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+        <span class="tab-label">Portfolio</span>
+      </a>
+      <a href="#" class="tab-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <span class="tab-label">Explore</span>
+      </a>
+      <a href="#" class="tab-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span class="tab-label">Profile</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

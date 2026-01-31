@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Memory Bank — Business Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0A0A0B;
+      --bg-secondary: #111113;
+      --bg-card: #18181B;
+      --bg-card-hover: #1F1F23;
+      --gold-primary: #D4AF37;
+      --gold-light: #F4D775;
+      --gold-subtle: rgba(212, 175, 55, 0.1);
+      --text-primary: #FAFAFA;
+      --text-secondary: #A1A1AA;
+      --text-muted: #71717A;
+      --border: #27272A;
+      --border-gold: rgba(212, 175, 55, 0.3);
+      --success: #22C55E;
+      --success-bg: rgba(34, 197, 94, 0.1);
+      --cyan: #22D3EE;
+      --pink: #EC4899;
+      --purple: #A855F7;
+      --orange: #F59E0B;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 10, 11, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 16px 0;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-icon svg {
+      width: 20px;
+      height: 20px;
+      color: #000;
+    }
+
+    .nav-logo span {
+      font-weight: 600;
+    }
+
+    .nav-badge {
+      padding: 4px 12px;
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--gold-primary);
+      font-weight: 500;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 140px 24px 80px;
+      text-align: center;
+      background: radial-gradient(ellipse at top, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+    }
+
+    .hero-label {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-tagline {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+
+    .hero-stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Table of Contents */
+    .toc {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    .toc-inner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .toc h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      transition: all 0.2s;
+    }
+
+    .toc-link:hover {
+      border-color: var(--gold-primary);
+      background: var(--bg-card-hover);
+    }
+
+    .toc-num {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gold-subtle);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+
+    /* Main Content */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Section */
+    .section {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section:first-child {
+      border-top: none;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+
+    .section-num {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold-primary);
+      margin-bottom: 16px;
+    }
+
+    .section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-intro {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+    }
+
+    /* Typography */
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 40px 0 16px;
+    }
+
+    h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--gold-primary);
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+    }
+
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    ul, ol {
+      margin: 16px 0;
+      padding-left: 24px;
+      color: var(--text-secondary);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gold-subtle);
+      border-radius: 12px;
+      font-size: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .card-subtitle {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Highlight Box */
+    .highlight {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 32px 0;
+    }
+
+    .highlight-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-primary);
+      margin-bottom: 12px;
+    }
+
+    .highlight h3 {
+      margin: 0 0 16px;
+      font-size: 1.75rem;
+    }
+
+    .highlight p {
+      margin: 0;
+      font-size: 1.125rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 24px 0;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+
+    th {
+      background: var(--bg-card);
+      padding: 16px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--bg-card);
+    }
+
+    /* Comparison Cards */
+    .comparison {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 600px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .comparison-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .comparison-card.highlight-bad {
+      border-color: rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    .comparison-card.highlight-good {
+      border-color: var(--border-gold);
+      background: var(--gold-subtle);
+    }
+
+    .comparison-card h4 {
+      margin: 0 0 16px;
+      color: var(--text-primary);
+    }
+
+    .comparison-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    /* Timeline */
+    .timeline {
+      margin: 32px 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 24px;
+      padding-bottom: 32px;
+      position: relative;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 40px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-marker {
+      width: 40px;
+      height: 40px;
+      background: var(--gold-subtle);
+      border: 2px solid var(--gold-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--gold-primary);
+      font-size: 0.875rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding-top: 8px;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      font-size: 1.125rem;
+      margin-bottom: 4px;
+    }
+
+    .timeline-date {
+      font-size: 0.875rem;
+      color: var(--gold-primary);
+      margin-bottom: 12px;
+    }
+
+    /* Funding Box */
+    .funding-box {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+      border: 2px solid var(--gold-primary);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 40px 0;
+      text-align: center;
+    }
+
+    .funding-amount {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4rem;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .funding-label {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .funding-details {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .funding-detail {
+      text-align: center;
+    }
+
+    .funding-detail-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .funding-detail-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Use of Funds Chart */
+    .funds-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .fund-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .fund-label {
+      width: 140px;
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+
+    .fund-bar-wrapper {
+      flex: 1;
+      height: 32px;
+      background: var(--bg-card);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .fund-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    /* Risk Matrix */
+    .risk-item {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .risk-indicator {
+      width: 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .risk-indicator.high { background: #EF4444; }
+    .risk-indicator.medium { background: var(--orange); }
+    .risk-indicator.low { background: var(--success); }
+
+    .risk-content h4 {
+      margin: 0 0 8px;
+      color: var(--text-primary);
+    }
+
+    .risk-content p {
+      margin: 0;
+      font-size: 0.9375rem;
+    }
+
+    /* Quote */
+    .quote {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      text-align: center;
+      padding: 60px 24px;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      max-width: 700px;
+      margin: 60px auto;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 60px 24px;
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .footer-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+
+    /* Print styles */
+    @media print {
+      .nav { display: none; }
+      .hero { padding-top: 40px; }
+      body { background: white; color: black; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <span>Memory Bank</span>
+      </a>
+      <div class="nav-badge">Business Plan Q1 2025</div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-label">Confidential — For Investor Review Only</div>
+    <h1>The Memory <span>Bank</span></h1>
+    <p class="hero-tagline">Revolutionizing how people measure wealth by combining financial assets with AI-valuated life experiences.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">$3.5M</div>
+        <div class="hero-stat-label">Seed Round</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">$40B+</div>
+        <div class="hero-stat-label">TAM</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">100K</div>
+        <div class="hero-stat-label">Year 1 Users</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">$1.2M</div>
+        <div class="hero-stat-label">Year 1 ARR Target</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <div class="toc-inner">
+      <h2>Contents</h2>
+      <div class="toc-grid">
+        <a href="#executive-summary" class="toc-link"><span class="toc-num">1</span> Executive Summary</a>
+        <a href="#problem" class="toc-link"><span class="toc-num">2</span> The Problem</a>
+        <a href="#solution" class="toc-link"><span class="toc-num">3</span> The Solution</a>
+        <a href="#market" class="toc-link"><span class="toc-num">4</span> Market Analysis</a>
+        <a href="#competition" class="toc-link"><span class="toc-num">5</span> Competition</a>
+        <a href="#roadmap" class="toc-link"><span class="toc-num">6</span> Product Roadmap</a>
+        <a href="#revenue" class="toc-link"><span class="toc-num">7</span> Revenue Model</a>
+        <a href="#gtm" class="toc-link"><span class="toc-num">8</span> Go-to-Market</a>
+        <a href="#team" class="toc-link"><span class="toc-num">9</span> Team</a>
+        <a href="#funding" class="toc-link"><span class="toc-num">10</span> Funding Ask</a>
+        <a href="#risks" class="toc-link"><span class="toc-num">11</span> Risk Factors</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="content">
+    
+    <!-- Executive Summary -->
+    <section id="executive-summary" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 1</div>
+        <h2>Executive Summary</h2>
+      </div>
+
+      <div class="highlight">
+        <div class="highlight-label">The Core Insight</div>
+        <h3>Net worth ignores what makes people truly wealthy—their experiences.</h3>
+        <p>A person who has traveled the world, attended historic events, and built meaningful memories is told by every financial app that they're "worth" the same as someone who simply hoarded cash.</p>
+      </div>
+
+      <h3>Our Solution</h3>
+      <p>An app that quantifies the value of life experiences using a proprietary AI valuation algorithm, integrates with financial aggregators (Plaid), and combines both to display a user's <strong>"Total Life Worth."</strong></p>
+
+      <h3>Business Model</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">B2B SaaS</div>
+          <div class="stat-label">Partners pay to issue experience NFTs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">API</div>
+          <div class="stat-label">Financial institutions license Life Worth</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">Freemium</div>
+          <div class="stat-label">Premium subscriptions + tokens</div>
+        </div>
+      </div>
+
+      <h3>Why Now?</h3>
+      <ul>
+        <li><strong>Experience economy at all-time high</strong> — $8T+ globally</li>
+        <li><strong>Gen Z/Millennial shift</strong> from ownership to experiences</li>
+        <li><strong>NFT infrastructure mature</strong> but seeking utility beyond speculation</li>
+        <li><strong>Wealth management platforms</strong> desperate for differentiation</li>
+        <li><strong>Mint's shutdown</strong> created massive whitespace</li>
+      </ul>
+
+      <h3>Founder Advantage</h3>
+      <p>Currently at Morgan Stanley with direct access to wealth management decision-makers, deep understanding of HNW client psychology, and credibility with institutional investors.</p>
+    </section>
+
+    <!-- The Problem -->
+    <section id="problem" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 2</div>
+        <h2>The Problem</h2>
+        <p class="section-intro">Every financial app tells the same incomplete story: your worth = assets minus liabilities.</p>
+      </div>
+
+      <h3>What Net Worth Misses</h3>
+      <p>Consider two people with identical $500,000 net worth:</p>
+
+      <div class="comparison">
+        <div class="comparison-card highlight-bad">
+          <h4>Person A</h4>
+          <ul>
+            <li>Saved aggressively, never traveled</li>
+            <li>Never attended a concert</li>
+            <li>No meaningful experiences logged</li>
+            <li>High savings, low living</li>
+          </ul>
+        </div>
+        <div class="comparison-card highlight-good">
+          <h4>Person B</h4>
+          <ul>
+            <li>Visited 47 countries</li>
+            <li>Saw historic events live</li>
+            <li>Met their spouse backpacking</li>
+            <li>Rich life, moderate savings</li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>Traditional metrics say they're equal. They're not even close.</strong></p>
+
+      <h3>The Real Costs</h3>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">👤</div>
+          <div>
+            <div class="card-title">For Consumers</div>
+            <div class="card-subtitle">78% of Millennials prefer experiences over things</div>
+          </div>
+        </div>
+        <ul>
+          <li>No tool helps track, value, or optimize experiential investments</li>
+          <li>FOMO based purely on visible consumption</li>
+          <li>No framework for understanding if experiences are "worth it"</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">💼</div>
+          <div>
+            <div class="card-title">For Financial Advisors</div>
+            <div class="card-subtitle">Losing younger clients to robo-advisors</div>
+          </div>
+        </div>
+        <ul>
+          <li>Clients ask "Can I afford this trip?" but advisors only see balance sheets</li>
+          <li>No tools to incorporate experiential goals into planning</li>
+          <li>Wealth management differentiation is nearly impossible</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">✈️</div>
+          <div>
+            <div class="card-title">For Experience Providers</div>
+            <div class="card-subtitle">Competing purely on price</div>
+          </div>
+        </div>
+        <ul>
+          <li>Can't demonstrate lasting value of experiences</li>
+          <li>Customer loyalty programs feel transactional, not meaningful</li>
+          <li>No way to prove ROI on "experience" marketing claims</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- The Solution -->
+    <section id="solution" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 3</div>
+        <h2>The Solution</h2>
+        <p class="section-intro">Introducing Life Worth™ — a comprehensive view of personal wealth.</p>
+      </div>
+
+      <div class="highlight">
+        <div class="highlight-label">The Formula</div>
+        <h3>Life Worth = Financial Net Worth + Experience Value</h3>
+      </div>
+
+      <h3>Core Product Features</h3>
+
+      <h4>1. AI Experience Valuation Engine</h4>
+      <p>Users input experiences (concert, trip, milestone). AI considers rarity, personal significance, social proof, and market comparables to assign monetary value.</p>
+      <p><em>Example: "Attending the 2024 Super Bowl" = $4,200 base + $800 personal factors</em></p>
+
+      <h4>2. Financial Aggregation (Plaid Integration)</h4>
+      <p>Connect bank accounts, investments, crypto wallets. Real-time net worth tracking with a unified dashboard showing the complete picture.</p>
+
+      <h4>3. Partner Experience NFTs</h4>
+      <p>Travel companies, airlines, and venues issue verified experience NFTs — proof of attendance with automatic value attribution.</p>
+
+      <h4>4. $LIFE Token Economy</h4>
+      <p>Earn tokens by adding experiences, referring friends, booking through partners. Spend tokens to boost valuations, unlock premium features, redeem with partners.</p>
+
+      <h4>5. Social Layer</h4>
+      <p>Share Life Worth (or keep private). Opt-in leaderboards by category. "Experience portfolios" to inspire others.</p>
+
+      <div class="highlight">
+        <div class="highlight-label">The "Aha" Moment</div>
+        <h3>"Your experiences are worth more than your savings account"</h3>
+        <p>That single insight reframes their entire relationship with money and living.</p>
+      </div>
+    </section>
+
+    <!-- Market Analysis -->
+    <section id="market" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 4</div>
+        <h2>Market Analysis</h2>
+        <p class="section-intro">We operate at the intersection of three massive markets.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">$3.2B</div>
+          <div class="stat-label">Personal Finance Software (2030)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">$8.2T</div>
+          <div class="stat-label">Experience Economy (Global)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">$82B</div>
+          <div class="stat-label">Digital Assets (2030)</div>
+        </div>
+      </div>
+
+      <h3>Total Addressable Market</h3>
+      <ul>
+        <li>130M U.S. adults actively using personal finance apps</li>
+        <li>Average willingness to pay for premium: $8-15/month</li>
+        <li><strong>TAM (U.S. consumer only): $15.6B annually</strong></li>
+        <li>Add B2B API licensing + global expansion: <strong>$40B+ addressable</strong></li>
+      </ul>
+
+      <h3>Serviceable Obtainable Market (5-Year Target)</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Metric</th><th>Year 1</th><th>Year 3</th><th>Year 5</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Users</td><td>100K</td><td>2M</td><td>10M</td></tr>
+            <tr><td>Premium Conversion</td><td>5%</td><td>12%</td><td>18%</td></tr>
+            <tr><td>B2B Partners</td><td>15</td><td>100</td><td>200</td></tr>
+            <tr><td>ARR Target</td><td>$1.2M</td><td>$25M</td><td>$150M</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Competitive Landscape -->
+    <section id="competition" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 5</div>
+        <h2>Competitive Landscape</h2>
+        <p class="section-intro">No player combines financial tracking with experience valuation.</p>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Company</th><th>What They Do</th><th>Gap We Fill</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Mint (RIP)</strong></td><td>Budget tracking</td><td>Dead. Users orphaned.</td></tr>
+            <tr><td><strong>Empower</strong></td><td>Net worth + investing</td><td>Financial only, no experiences</td></tr>
+            <tr><td><strong>YNAB</strong></td><td>Budgeting</td><td>Focus on restriction, not living</td></tr>
+            <tr><td><strong>Kubera</strong></td><td>Net worth for HNW</td><td>No experience layer</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Our Competitive Moats</h3>
+      <ol>
+        <li><strong>Data Network Effects:</strong> More users = better AI valuations = more accurate = more users</li>
+        <li><strong>B2B Lock-in:</strong> Partners integrate NFT issuance; switching costs are high</li>
+        <li><strong>API Standard:</strong> If we become the "Life Worth API," we own the category</li>
+        <li><strong>Token Economics:</strong> $LIFE creates ecosystem stickiness</li>
+        <li><strong>Brand:</strong> First to define "Life Worth" category</li>
+      </ol>
+    </section>
+
+    <!-- Product Roadmap -->
+    <section id="roadmap" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 6</div>
+        <h2>Product Roadmap</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker">1</div>
+          <div class="timeline-content">
+            <div class="timeline-title">MVP Launch</div>
+            <div class="timeline-date">Q2 2025 (4 months)</div>
+            <p>User auth, manual experience logging, basic AI valuation, Plaid integration, Life Worth dashboard, social sharing.</p>
+            <p><strong>Goal:</strong> 5,000 active users, NPS > 50, D30 retention > 25%</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker">2</div>
+          <div class="timeline-content">
+            <div class="timeline-title">V1: B2B & Token</div>
+            <div class="timeline-date">Q4 2025 (6 months post-MVP)</div>
+            <p>Partner NFT integration (5 travel partners), $LIFE token launch, premium tier ($9.99/mo), advanced AI valuation, crypto wallet integration.</p>
+            <p><strong>Goal:</strong> 50,000 users, 10 B2B partners, $30K MRR</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker">3</div>
+          <div class="timeline-content">
+            <div class="timeline-title">V2: Enterprise Scale</div>
+            <div class="timeline-date">Q3 2026 (12 months post-V1)</div>
+            <p>API for financial institutions, white-label for banks, token trading, AI "Experience Advisor," booking marketplace, international expansion.</p>
+            <p><strong>Goal:</strong> 500,000 users, 50 B2B partners, 5 API customers, $2M ARR</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Revenue Model -->
+    <section id="revenue" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 7</div>
+        <h2>Revenue Model</h2>
+        <p class="section-intro">Three diversified revenue streams with strong unit economics.</p>
+      </div>
+
+      <h3>Consumer Freemium (40% at scale)</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Tier</th><th>Price</th><th>Features</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Free</td><td>$0</td><td>50 experiences, basic valuation, Plaid (3 accounts)</td></tr>
+            <tr><td>Premium</td><td>$9.99/mo</td><td>Unlimited, advanced AI, full Plaid, NFT minting</td></tr>
+            <tr><td>Premium+</td><td>$19.99/mo</td><td>Family plan, API access, priority support</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>B2B Partner Integration (35% at scale)</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Tier</th><th>Annual Fee</th><th>Includes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Starter</td><td>$25,000</td><td>NFT issuance (up to 10K/year), basic dashboard</td></tr>
+            <tr><td>Growth</td><td>$75,000</td><td>Up to 100K NFTs, analytics, co-marketing</td></tr>
+            <tr><td>Enterprise</td><td>$200,000+</td><td>Unlimited, custom integration, dedicated support</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Financial Institution API (25% at scale)</h3>
+      <p>Per-query pricing ($0.05-0.25), annual licenses ($100K-$500K), and white-label enterprise deals ($500K+).</p>
+
+      <h3>5-Year Revenue Projections</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Metric</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Total Revenue</td><td>$800K</td><td>$5.7M</td><td>$24.9M</td><td>$70M</td><td>$158M</td></tr>
+            <tr><td>Gross Margin</td><td>65%</td><td>70%</td><td>75%</td><td>78%</td><td>80%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Go-to-Market -->
+    <section id="gtm" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 8</div>
+        <h2>Go-to-Market Strategy</h2>
+      </div>
+
+      <h4>Phase 1: Waitlist → MVP (Q1-Q2 2025)</h4>
+      <p>Landing page A/B testing, Twitter/X founder-led content, Reddit seeding, Product Hunt launch.</p>
+      <p><strong>Target:</strong> 10,000 waitlist → 5,000 MVP users</p>
+
+      <h4>Phase 2: Consumer Growth (Q3-Q4 2025)</h4>
+      <p>Influencer partnerships (travel + finance creators), viral "What's your Life Worth?" calculator, referral program (500 $LIFE tokens), App Store optimization.</p>
+      <p><strong>Target CAC:</strong> $3-8 with $50K test budget</p>
+
+      <h4>Phase 3: B2B Launch (Q4 2025 - Q2 2026)</h4>
+      <p>Founder network (Morgan Stanley contacts), industry events (Skift Forum, Money 20/20), case studies from design partners, dedicated BD hire.</p>
+      <p><strong>Target:</strong> 15 launch partners (2 airlines, 3 hotels, 10 experience platforms)</p>
+
+      <h4>Phase 4: Enterprise API (2026)</h4>
+      <p>Morgan Stanley pilot, wealth management conferences (T3, Wealth Stack), compliance-first messaging, published research on Life Worth as a planning framework.</p>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 9</div>
+        <h2>Team Requirements</h2>
+      </div>
+
+      <h3>Immediate Hires (Seed)</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Role</th><th>Timing</th><th>Key Qualifications</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CTO/Technical Co-founder</td><td>Pre-seed</td><td>Mobile + backend, AI/ML, startup veteran</td></tr>
+            <tr><td>Lead Mobile Engineer</td><td>Month 1</td><td>React Native, shipped consumer apps</td></tr>
+            <tr><td>Backend Engineer</td><td>Month 2</td><td>Node.js, PostgreSQL, API design</td></tr>
+            <tr><td>Product Designer</td><td>Month 2</td><td>Consumer fintech, mobile-first</td></tr>
+            <tr><td>Growth Lead</td><td>Month 4</td><td>Consumer app growth, viral mechanics</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Headcount Projection</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">6-8</div>
+          <div class="stat-label">Seed Stage</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">20-25</div>
+          <div class="stat-label">Series A</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">50-75</div>
+          <div class="stat-label">Series B</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Funding Ask -->
+    <section id="funding" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 10</div>
+        <h2>The Ask</h2>
+      </div>
+
+      <div class="funding-box">
+        <div class="funding-amount">$3.5M</div>
+        <div class="funding-label">Seed Round</div>
+        <div class="funding-details">
+          <div class="funding-detail">
+            <div class="funding-detail-value">$15M</div>
+            <div class="funding-detail-label">Pre-money Valuation</div>
+          </div>
+          <div class="funding-detail">
+            <div class="funding-detail-value">18-24mo</div>
+            <div class="funding-detail-label">Runway</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Use of Funds</h3>
+      <div class="funds-chart">
+        <div class="fund-item">
+          <div class="fund-label">Engineering</div>
+          <div class="fund-bar-wrapper">
+            <div class="fund-bar" style="width: 45%;">$1.58M</div>
+          </div>
+        </div>
+        <div class="fund-item">
+          <div class="fund-label">Marketing</div>
+          <div class="fund-bar-wrapper">
+            <div class="fund-bar" style="width: 20%;">$700K</div>
+          </div>
+        </div>
+        <div class="fund-item">
+          <div class="fund-label">Product & Design</div>
+          <div class="fund-bar-wrapper">
+            <div class="fund-bar" style="width: 15%;">$525K</div>
+          </div>
+        </div>
+        <div class="fund-item">
+          <div class="fund-label">Operations</div>
+          <div class="fund-bar-wrapper">
+            <div class="fund-bar" style="width: 10%;">$350K</div>
+          </div>
+        </div>
+        <div class="fund-item">
+          <div class="fund-label">Reserve</div>
+          <div class="fund-bar-wrapper">
+            <div class="fund-bar" style="width: 10%;">$350K</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Milestones to Series A</h3>
+      <ul>
+        <li>100,000 users with 10% premium conversion</li>
+        <li>15 B2B partners (3 enterprise-tier)</li>
+        <li>$1.2M ARR</li>
+        <li>$LIFE token launch</li>
+        <li>3 LOIs from financial institutions for API</li>
+      </ul>
+
+      <h3>Why Invest Now?</h3>
+      <ol>
+        <li><strong>Market timing</strong> — Mint's death + experience economy peak</li>
+        <li><strong>Founder-market fit</strong> — Morgan Stanley access for enterprise</li>
+        <li><strong>Category creation</strong> — "Life Worth" is unowned; first mover wins</li>
+        <li><strong>Multiple revenue streams</strong> — Not dependent on single model</li>
+        <li><strong>Clear exit paths</strong> — Acquirable by fintech, wealth, travel giants</li>
+      </ol>
+    </section>
+
+    <!-- Risk Factors -->
+    <section id="risks" class="section">
+      <div class="section-header">
+        <div class="section-num">Section 11</div>
+        <h2>Risk Factors & Mitigation</h2>
+      </div>
+
+      <div class="risk-item">
+        <div class="risk-indicator medium"></div>
+        <div class="risk-content">
+          <h4>AI valuation seen as arbitrary</h4>
+          <p><strong>Mitigation:</strong> Transparency in methodology, user feedback loops, third-party validation studies.</p>
+        </div>
+      </div>
+
+      <div class="risk-item">
+        <div class="risk-indicator high"></div>
+        <div class="risk-content">
+          <h4>Competitor copies concept</h4>
+          <p><strong>Mitigation:</strong> First-mover advantage, network effects compound with data, B2B lock-in creates switching costs.</p>
+        </div>
+      </div>
+
+      <div class="risk-item">
+        <div class="risk-indicator medium"></div>
+        <div class="risk-content">
+          <h4>Token classified as security</h4>
+          <p><strong>Mitigation:</strong> Securities counsel from day 1, utility-only design, no trading at launch.</p>
+        </div>
+      </div>
+
+      <div class="risk-item">
+        <div class="risk-indicator medium"></div>
+        <div class="risk-content">
+          <h4>Unable to hire CTO</h4>
+          <p><strong>Mitigation:</strong> Aggressive comp package, meaningful equity (8-12%), leverage founder network.</p>
+        </div>
+      </div>
+
+      <div class="risk-item">
+        <div class="risk-indicator low"></div>
+        <div class="risk-content">
+          <h4>Economic downturn reduces experience spending</h4>
+          <p><strong>Mitigation:</strong> Pivot messaging to "past experiences have lasting value" — nostalgia plays well in downturns.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote -->
+    <div class="quote">
+      "Your life has value. Now you can prove it."
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>The Memory Bank — Business Plan Q1 2025</p>
+    <div class="footer-badge">Confidential — For Investor Review Only</div>
+  </footer>
+
+</body>
+</html>

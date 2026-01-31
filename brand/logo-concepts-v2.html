@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Bank — Logo Concepts V2</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0A0A0B;
+      color: #FAFAFA;
+      padding: 60px 24px;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: 2.5rem; margin-bottom: 8px; }
+    h1 span { color: #D4AF37; }
+    .subtitle { color: #71717A; margin-bottom: 48px; }
+    h2 { font-size: 1.25rem; margin: 48px 0 16px; color: #A1A1AA; }
+    p { color: #71717A; margin-bottom: 24px; line-height: 1.6; }
+    
+    .logo-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    
+    .logo-card {
+      background: #18181B;
+      border: 1px solid #27272A;
+      border-radius: 20px;
+      padding: 48px;
+      text-align: center;
+    }
+    
+    .logo-card.dark { background: #0A0A0B; }
+    .logo-card.light { background: #FAFAFA; }
+    .logo-card.gold { background: linear-gradient(135deg, #D4AF37, #F4D775); }
+    
+    .logo-card svg { max-width: 100%; height: auto; margin-bottom: 20px; }
+    
+    .logo-label {
+      font-size: 0.75rem;
+      color: #71717A;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .logo-card.light .logo-label { color: #71717A; }
+    .logo-card.gold .logo-label { color: rgba(0,0,0,0.5); }
+    
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 24px;
+    }
+    
+    .icon-card {
+      text-align: center;
+    }
+    
+    .icon-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .icon-preview svg { width: 70px; height: 70px; }
+    
+    .winner {
+      border: 2px solid #D4AF37;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Stacked <span>Growth</span></h1>
+    <p class="subtitle">Combining the layered memories concept with upward growth trajectory</p>
+
+    <!-- Concept A: Ascending Bars -->
+    <h2>Concept A: Ascending Memory Bars</h2>
+    <p>Stacked bars that rise like a growth chart. Each bar is a memory layer, ascending to show increasing life worth.</p>
+    <div class="logo-row">
+      <div class="logo-card dark winner">
+        <svg viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#D4AF37"/>
+              <stop offset="100%" style="stop-color:#F4D775"/>
+            </linearGradient>
+          </defs>
+          <!-- Ascending bars -->
+          <rect x="8" y="52" width="14" height="20" rx="3" fill="url(#gold1)" opacity="0.4"/>
+          <rect x="24" y="42" width="14" height="30" rx="3" fill="url(#gold1)" opacity="0.6"/>
+          <rect x="40" y="30" width="14" height="42" rx="3" fill="url(#gold1)" opacity="0.8"/>
+          <rect x="56" y="16" width="14" height="56" rx="3" fill="url(#gold1)"/>
+          <!-- Text -->
+          <text x="82" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#FAFAFA">Memory</text>
+          <text x="172" y="48" font-family="DM Serif Display, serif" font-size="22" fill="url(#gold1)">Bank</text>
+        </svg>
+        <div class="logo-label">⭐ Recommended</div>
+      </div>
+      <div class="logo-card light">
+        <svg viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="52" width="14" height="20" rx="3" fill="#D4AF37" opacity="0.4"/>
+          <rect x="24" y="42" width="14" height="30" rx="3" fill="#D4AF37" opacity="0.6"/>
+          <rect x="40" y="30" width="14" height="42" rx="3" fill="#D4AF37" opacity="0.8"/>
+          <rect x="56" y="16" width="14" height="56" rx="3" fill="#D4AF37"/>
+          <text x="82" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#0A0A0B">Memory</text>
+          <text x="172" y="48" font-family="DM Serif Display, serif" font-size="22" fill="#D4AF37">Bank</text>
+        </svg>
+        <div class="logo-label">Light Background</div>
+      </div>
+    </div>
+
+    <!-- Concept B: Rising Layers -->
+    <h2>Concept B: Rising Memory Layers</h2>
+    <p>The original stacked layers, but tilted upward to show growth trajectory.</p>
+    <div class="logo-row">
+      <div class="logo-card dark">
+        <svg viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#D4AF37"/>
+              <stop offset="100%" style="stop-color:#F4D775"/>
+            </linearGradient>
+          </defs>
+          <!-- Tilted ascending layers -->
+          <rect x="4" y="50" width="36" height="8" rx="2" fill="url(#gold2)" opacity="0.4" transform="rotate(-8 4 54)"/>
+          <rect x="14" y="38" width="40" height="8" rx="2" fill="url(#gold2)" opacity="0.6" transform="rotate(-8 14 42)"/>
+          <rect x="24" y="26" width="44" height="8" rx="2" fill="url(#gold2)" opacity="0.85" transform="rotate(-8 24 30)"/>
+          <rect x="34" y="14" width="48" height="8" rx="2" fill="url(#gold2)" transform="rotate(-8 34 18)"/>
+          <!-- Text -->
+          <text x="90" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#FAFAFA">Memory</text>
+          <text x="180" y="48" font-family="DM Serif Display, serif" font-size="22" fill="url(#gold2)">Bank</text>
+        </svg>
+        <div class="logo-label">Dark Background</div>
+      </div>
+      <div class="logo-card light">
+        <svg viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="50" width="36" height="8" rx="2" fill="#D4AF37" opacity="0.4" transform="rotate(-8 4 54)"/>
+          <rect x="14" y="38" width="40" height="8" rx="2" fill="#D4AF37" opacity="0.6" transform="rotate(-8 14 42)"/>
+          <rect x="24" y="26" width="44" height="8" rx="2" fill="#D4AF37" opacity="0.85" transform="rotate(-8 24 30)"/>
+          <rect x="34" y="14" width="48" height="8" rx="2" fill="#D4AF37" transform="rotate(-8 34 18)"/>
+          <text x="90" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#0A0A0B">Memory</text>
+          <text x="180" y="48" font-family="DM Serif Display, serif" font-size="22" fill="#D4AF37">Bank</text>
+        </svg>
+        <div class="logo-label">Light Background</div>
+      </div>
+    </div>
+
+    <!-- Concept C: Growth Line + Layers -->
+    <h2>Concept C: Growth Line Through Layers</h2>
+    <p>Horizontal memory layers with an ascending line cutting through — showing your worth growing over time.</p>
+    <div class="logo-row">
+      <div class="logo-card dark">
+        <svg viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold3" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#D4AF37"/>
+              <stop offset="100%" style="stop-color:#F4D775"/>
+            </linearGradient>
+          </defs>
+          <!-- Stacked layers -->
+          <rect x="8" y="22" width="56" height="8" rx="2" fill="url(#gold3)"/>
+          <rect x="8" y="34" width="56" height="8" rx="2" fill="url(#gold3)" opacity="0.6"/>
+          <rect x="8" y="46" width="56" height="8" rx="2" fill="url(#gold3)" opacity="0.3"/>
+          <!-- Growth line -->
+          <path d="M8 54 L24 42 L40 46 L64 18" stroke="#FAFAFA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="64" cy="18" r="4" fill="url(#gold3)"/>
+          <!-- Text -->
+          <text x="80" y="44" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#FAFAFA">Memory</text>
+          <text x="170" y="44" font-family="DM Serif Display, serif" font-size="22" fill="url(#gold3)">Bank</text>
+        </svg>
+        <div class="logo-label">Dark Background</div>
+      </div>
+      <div class="logo-card light">
+        <svg viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="22" width="56" height="8" rx="2" fill="#D4AF37"/>
+          <rect x="8" y="34" width="56" height="8" rx="2" fill="#D4AF37" opacity="0.6"/>
+          <rect x="8" y="46" width="56" height="8" rx="2" fill="#D4AF37" opacity="0.3"/>
+          <path d="M8 54 L24 42 L40 46 L64 18" stroke="#0A0A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="64" cy="18" r="4" fill="#D4AF37"/>
+          <text x="80" y="44" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#0A0A0B">Memory</text>
+          <text x="170" y="44" font-family="DM Serif Display, serif" font-size="22" fill="#D4AF37">Bank</text>
+        </svg>
+        <div class="logo-label">Light Background</div>
+      </div>
+    </div>
+
+    <!-- Concept D: Stacked Coins Rising -->
+    <h2>Concept D: Rising Coin Stacks</h2>
+    <p>Like stacked coins in a bank, but growing — tangible value you can see increasing.</p>
+    <div class="logo-row">
+      <div class="logo-card dark">
+        <svg viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold4" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#D4AF37"/>
+              <stop offset="100%" style="stop-color:#F4D775"/>
+            </linearGradient>
+          </defs>
+          <!-- Coin stacks -->
+          <ellipse cx="16" cy="58" rx="10" ry="4" fill="url(#gold4)" opacity="0.5"/>
+          <ellipse cx="16" cy="54" rx="10" ry="4" fill="url(#gold4)" opacity="0.7"/>
+          
+          <ellipse cx="36" cy="54" rx="10" ry="4" fill="url(#gold4)" opacity="0.5"/>
+          <ellipse cx="36" cy="50" rx="10" ry="4" fill="url(#gold4)" opacity="0.7"/>
+          <ellipse cx="36" cy="46" rx="10" ry="4" fill="url(#gold4)" opacity="0.9"/>
+          
+          <ellipse cx="56" cy="46" rx="10" ry="4" fill="url(#gold4)" opacity="0.5"/>
+          <ellipse cx="56" cy="42" rx="10" ry="4" fill="url(#gold4)" opacity="0.6"/>
+          <ellipse cx="56" cy="38" rx="10" ry="4" fill="url(#gold4)" opacity="0.7"/>
+          <ellipse cx="56" cy="34" rx="10" ry="4" fill="url(#gold4)" opacity="0.85"/>
+          <ellipse cx="56" cy="30" rx="10" ry="4" fill="url(#gold4)"/>
+          <!-- Text -->
+          <text x="78" y="48" font-family="Inter, sans-serif" font-weight="600" font-size="22" fill="#FAFAFA">Memory</text>
+          <text x="168" y="48" font-family="DM Serif Display, serif" font-size="22" fill="url(#gold4)">Bank</text>
+        </svg>
+        <div class="logo-label">Dark Background</div>
+      </div>
+    </div>
+
+    <!-- App Icons -->
+    <h2>App Icons / IG Profile</h2>
+    <p>How these concepts work as square icons at small sizes.</p>
+    <div class="icon-grid">
+      <div class="icon-card">
+        <div class="icon-preview winner" style="background: linear-gradient(135deg, #D4AF37, #F4D775);">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ascending bars -->
+            <rect x="15" y="62" width="16" height="23" rx="4" fill="#0A0A0B" opacity="0.4"/>
+            <rect x="33" y="48" width="16" height="37" rx="4" fill="#0A0A0B" opacity="0.6"/>
+            <rect x="51" y="32" width="16" height="53" rx="4" fill="#0A0A0B" opacity="0.8"/>
+            <rect x="69" y="15" width="16" height="70" rx="4" fill="#0A0A0B"/>
+          </svg>
+        </div>
+        <div class="logo-label">⭐ Ascending Bars</div>
+      </div>
+      <div class="icon-card">
+        <div class="icon-preview" style="background: #0A0A0B; border: 2px solid #27272A;">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="goldIcon1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#D4AF37"/>
+                <stop offset="100%" style="stop-color:#F4D775"/>
+              </linearGradient>
+            </defs>
+            <rect x="15" y="62" width="16" height="23" rx="4" fill="url(#goldIcon1)" opacity="0.4"/>
+            <rect x="33" y="48" width="16" height="37" rx="4" fill="url(#goldIcon1)" opacity="0.6"/>
+            <rect x="51" y="32" width="16" height="53" rx="4" fill="url(#goldIcon1)" opacity="0.8"/>
+            <rect x="69" y="15" width="16" height="70" rx="4" fill="url(#goldIcon1)"/>
+          </svg>
+        </div>
+        <div class="logo-label">Dark + Gold Bars</div>
+      </div>
+      <div class="icon-card">
+        <div class="icon-preview" style="background: linear-gradient(135deg, #D4AF37, #F4D775);">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Tilted layers -->
+            <rect x="10" y="60" width="40" height="10" rx="3" fill="#0A0A0B" opacity="0.3" transform="rotate(-10 10 65)"/>
+            <rect x="18" y="46" width="48" height="10" rx="3" fill="#0A0A0B" opacity="0.5" transform="rotate(-10 18 51)"/>
+            <rect x="26" y="32" width="56" height="10" rx="3" fill="#0A0A0B" opacity="0.75" transform="rotate(-10 26 37)"/>
+            <rect x="34" y="18" width="56" height="10" rx="3" fill="#0A0A0B" transform="rotate(-10 34 23)"/>
+          </svg>
+        </div>
+        <div class="logo-label">Rising Layers</div>
+      </div>
+      <div class="icon-card">
+        <div class="icon-preview" style="background: #0A0A0B; border: 2px solid #27272A;">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="goldIcon2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#D4AF37"/>
+                <stop offset="100%" style="stop-color:#F4D775"/>
+              </linearGradient>
+            </defs>
+            <!-- Layers + line -->
+            <rect x="15" y="28" width="70" height="12" rx="3" fill="url(#goldIcon2)"/>
+            <rect x="15" y="44" width="70" height="12" rx="3" fill="url(#goldIcon2)" opacity="0.5"/>
+            <rect x="15" y="60" width="70" height="12" rx="3" fill="url(#goldIcon2)" opacity="0.25"/>
+            <path d="M15 72 L35 52 L55 58 L85 22" stroke="#FAFAFA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="85" cy="22" r="6" fill="url(#goldIcon2)"/>
+          </svg>
+        </div>
+        <div class="logo-label">Layers + Growth</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Memory Bank - Onboarding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Onboarding Specific Styles */
+    .onboarding-screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg);
+    }
+
+    .screen { display: none; }
+    .screen.active { display: flex; }
+
+    /* Welcome Screen */
+    .welcome-hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 60px;
+    }
+
+    .logo-mark {
+      width: 100px;
+      height: 100px;
+      background: var(--gold-gradient);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-xl);
+      box-shadow: var(--shadow-gold);
+      animation: glow 3s ease infinite;
+    }
+
+    .logo-mark svg {
+      width: 56px;
+      height: 56px;
+      color: #000;
+    }
+
+    .welcome-title {
+      font-family: var(--font-display);
+      font-size: 2.75rem;
+      margin-bottom: var(--space-md);
+      line-height: 1.1;
+    }
+
+    .welcome-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      max-width: 280px;
+      line-height: 1.5;
+    }
+
+    .auth-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      width: 100%;
+      margin-top: auto;
+      padding-bottom: var(--space-xl);
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .social-btn:hover {
+      border-color: var(--gold-primary);
+      background: var(--bg-elevated);
+    }
+
+    .social-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .terms-text {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: var(--space-lg);
+    }
+
+    .terms-text a {
+      color: var(--gold-primary);
+      text-decoration: none;
+    }
+
+    /* Hook Screen */
+    .hook-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 40px;
+    }
+
+    .hook-question {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: 1.3;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .memory-input-area {
+      position: relative;
+    }
+
+    .memory-textarea {
+      width: 100%;
+      min-height: 160px;
+      padding: var(--space-lg);
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: inherit;
+      resize: none;
+      transition: all 0.2s ease;
+    }
+
+    .memory-textarea:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 0 3px var(--gold-subtle);
+    }
+
+    .memory-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .memory-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .suggestion-chip {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .suggestion-chip:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+    }
+
+    .char-count {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Valuation Reveal */
+    .reveal-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .reveal-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    .reveal-value {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: countUp 0.8s ease forwards;
+    }
+
+    .reveal-experience {
+      margin-top: var(--space-lg);
+      padding: var(--space-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      max-width: 320px;
+    }
+
+    .reveal-experience-title {
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .reveal-experience-text {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .valuation-breakdown {
+      margin-top: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .breakdown-label {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .breakdown-value {
+      font-weight: 600;
+      color: var(--text-gold);
+    }
+
+    /* Connect Accounts */
+    .connect-header {
+      text-align: center;
+      padding-top: 40px;
+      margin-bottom: var(--space-xl);
+    }
+
+    .connect-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .connect-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .connect-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .connect-option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .connect-option:hover {
+      border-color: var(--gold-primary);
+    }
+
+    .connect-option.connected {
+      border-color: var(--success);
+      background: var(--success-bg);
+    }
+
+    .connect-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .connect-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--text-primary);
+    }
+
+    .connect-info {
+      flex: 1;
+    }
+
+    .connect-name {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .connect-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .connect-action {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-full);
+      color: var(--gold-primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .connect-action.connected {
+      background: var(--success-bg);
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    .skip-link {
+      display: block;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-top: var(--space-xl);
+      cursor: pointer;
+    }
+
+    .skip-link:hover {
+      color: var(--gold-primary);
+    }
+
+    /* Progress Navigation */
+    .onboarding-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md) 0;
+      margin-top: auto;
+    }
+
+    .progress-indicator {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .progress-step {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-full);
+      background: var(--bg-tertiary);
+      transition: all 0.3s ease;
+    }
+
+    .progress-step.active {
+      width: 24px;
+      background: var(--gold-primary);
+    }
+
+    .progress-step.completed {
+      background: var(--gold-dark);
+    }
+
+    /* Animation Delays */
+    .animate-delay-1 { animation-delay: 0.1s; }
+    .animate-delay-2 { animation-delay: 0.2s; }
+    .animate-delay-3 { animation-delay: 0.3s; }
+    .animate-delay-4 { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Screen 1: Welcome / Sign In -->
+    <section class="onboarding-screen screen active" id="screen-welcome">
+      <div class="welcome-hero animate-fade-in">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h1 class="welcome-title">Memory<br><span class="text-gold-gradient">Bank</span></h1>
+        <p class="welcome-subtitle">Turn your life experiences into a portfolio of wealth</p>
+      </div>
+
+      <div class="auth-buttons">
+        <button class="social-btn" onclick="showScreen('screen-hook')">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.164 6.839 9.49.5.09.682-.218.682-.486 0-.236-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .27.18.58.688.482C19.138 20.16 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+          Continue with Apple
+        </button>
+        <button class="social-btn" onclick="showScreen('screen-hook')">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Continue with Google
+        </button>
+        <button class="btn btn-secondary btn-full" onclick="showScreen('screen-hook')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Sign up with Email
+        </button>
+      </div>
+
+      <p class="terms-text">
+        By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+      </p>
+    </section>
+
+    <!-- Screen 2: Memory Hook -->
+    <section class="onboarding-screen screen" id="screen-hook">
+      <div class="hook-content">
+        <h2 class="hook-question animate-slide-up">
+          What's your most <span class="text-gold-gradient">memorable</span> experience?
+        </h2>
+        
+        <div class="memory-input-area animate-slide-up animate-delay-1">
+          <textarea 
+            class="memory-textarea" 
+            placeholder="Tell us about a moment that changed your life..."
+            id="memory-input"
+            maxlength="500"
+          >Watching the sunrise at Machu Picchu after hiking the Inca Trail for 4 days with my best friends.</textarea>
+          <span class="char-count"><span id="char-count">97</span>/500</span>
+        </div>
+
+        <div class="memory-suggestions animate-slide-up animate-delay-2">
+          <span class="suggestion-chip">🌍 First solo trip</span>
+          <span class="suggestion-chip">🎓 Graduation day</span>
+          <span class="suggestion-chip">🎸 A life-changing concert</span>
+          <span class="suggestion-chip">💍 Wedding day</span>
+        </div>
+      </div>
+
+      <div class="onboarding-nav">
+        <div class="progress-indicator">
+          <span class="progress-step completed"></span>
+          <span class="progress-step active"></span>
+          <span class="progress-step"></span>
+          <span class="progress-step"></span>
+        </div>
+        <button class="btn btn-primary" onclick="showScreen('screen-reveal')">
+          Value My Memory
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Screen 3: Valuation Reveal -->
+    <section class="onboarding-screen screen" id="screen-reveal">
+      <div class="reveal-container">
+        <span class="reveal-label animate-fade-in">This memory is worth</span>
+        <div class="reveal-value animate-scale-in">$4,850</div>
+        
+        <div class="reveal-experience animate-slide-up animate-delay-1">
+          <span class="category-tag category-travel">✈️ Travel</span>
+          <h3 class="reveal-experience-title mt-md">Machu Picchu Sunrise</h3>
+          <p class="reveal-experience-text">4-day Inca Trail with friends</p>
+        </div>
+
+        <div class="valuation-breakdown animate-slide-up animate-delay-2">
+          <div class="breakdown-item">
+            <span class="breakdown-label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              Base Experience
+            </span>
+            <span class="breakdown-value">$2,400</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              Rarity Multiplier
+            </span>
+            <span class="breakdown-value">1.5x</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+              Emotional Depth
+            </span>
+            <span class="breakdown-value">+$650</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              Shared With Others
+            </span>
+            <span class="breakdown-value">+$200</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="onboarding-nav">
+        <div class="progress-indicator">
+          <span class="progress-step completed"></span>
+          <span class="progress-step completed"></span>
+          <span class="progress-step active"></span>
+          <span class="progress-step"></span>
+        </div>
+        <button class="btn btn-primary" onclick="showScreen('screen-connect')">
+          Continue
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Screen 4: Connect Accounts -->
+    <section class="onboarding-screen screen" id="screen-connect">
+      <div class="connect-header">
+        <h2 class="connect-title">Complete Your <span class="text-gold-gradient">Life Worth</span></h2>
+        <p class="connect-subtitle">Connect financial accounts to see your total picture (optional)</p>
+      </div>
+
+      <div class="connect-options">
+        <div class="connect-option connected">
+          <div class="connect-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+              <line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+          </div>
+          <div class="connect-info">
+            <div class="connect-name">Bank Accounts</div>
+            <div class="connect-desc">Chase, Bank of America, Wells Fargo...</div>
+          </div>
+          <span class="connect-action connected">✓ Connected</span>
+        </div>
+
+        <div class="connect-option">
+          <div class="connect-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <div class="connect-info">
+            <div class="connect-name">Investments</div>
+            <div class="connect-desc">Fidelity, Robinhood, Coinbase...</div>
+          </div>
+          <span class="connect-action">Connect</span>
+        </div>
+
+        <div class="connect-option">
+          <div class="connect-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div class="connect-info">
+            <div class="connect-name">Real Estate</div>
+            <div class="connect-desc">Zillow, Property records...</div>
+          </div>
+          <span class="connect-action">Connect</span>
+        </div>
+
+        <div class="connect-option">
+          <div class="connect-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+            </svg>
+          </div>
+          <div class="connect-info">
+            <div class="connect-name">Experiences</div>
+            <div class="connect-desc">Google Photos, Strava, Spotify...</div>
+          </div>
+          <span class="connect-action">Connect</span>
+        </div>
+      </div>
+
+      <a class="skip-link" onclick="showScreen('screen-complete')">Skip for now →</a>
+
+      <div class="onboarding-nav">
+        <div class="progress-indicator">
+          <span class="progress-step completed"></span>
+          <span class="progress-step completed"></span>
+          <span class="progress-step completed"></span>
+          <span class="progress-step active"></span>
+        </div>
+        <button class="btn btn-primary" onclick="showScreen('screen-complete')">
+          Start My Journey
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Screen 5: Complete (Preview of Dashboard) -->
+    <section class="onboarding-screen screen" id="screen-complete">
+      <div class="reveal-container">
+        <div class="logo-mark animate-scale-in" style="margin-bottom: var(--space-xl);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        
+        <span class="reveal-label animate-fade-in">Your Life Worth</span>
+        <div class="reveal-value animate-scale-in" style="font-size: 3.5rem;">$127,850</div>
+        
+        <div class="flex gap-lg mt-lg animate-slide-up animate-delay-1">
+          <div class="text-center">
+            <div class="body-sm text-secondary">Financial</div>
+            <div class="heading-sm">$123,000</div>
+          </div>
+          <div style="width: 1px; background: var(--border-subtle);"></div>
+          <div class="text-center">
+            <div class="body-sm text-secondary">Experiences</div>
+            <div class="heading-sm text-gold">$4,850</div>
+          </div>
+        </div>
+
+        <p class="mt-xl animate-slide-up animate-delay-2" style="color: var(--text-secondary); max-width: 280px; text-align: center;">
+          You're just getting started. Add more memories to grow your experience portfolio.
+        </p>
+      </div>
+
+      <div class="auth-buttons" style="padding-bottom: var(--space-xl);">
+        <a href="02-dashboard.html" class="btn btn-primary btn-full btn-lg">
+          Go to Dashboard
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    // Character counter
+    const textarea = document.getElementById('memory-input');
+    const charCount = document.getElementById('char-count');
+    if (textarea && charCount) {
+      textarea.addEventListener('input', () => {
+        charCount.textContent = textarea.value.length;
+      });
+    }
+  </script>
+</body>
+</html>

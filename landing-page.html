@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Memory Bank — Your Life Has Value</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BC;
+            --dark: #0D0D0D;
+            --darker: #050505;
+            --gray: #888;
+            --white: #FAFAFA;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--white);
+            line-height: 1.6;
+        }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(ellipse at top, #1a1a2e 0%, var(--darker) 70%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            animation: shimmer 15s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(5%, 5%); }
+        }
+        
+        .logo {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, #B8960C 100%);
+            color: var(--dark);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        
+        /* Life Worth Display */
+        .worth-display {
+            margin: 4rem 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .worth-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .worth-value {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .worth-breakdown {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+        
+        /* Features */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--dark);
+        }
+        
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            padding: 2rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--white);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+        
+        .steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            text-align: left;
+        }
+        
+        .step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8960C 100%);
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-content p {
+            color: var(--gray);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        /* Waitlist Form */
+        .waitlist-form {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 450px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .waitlist-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            background: rgba(255,255,255,0.05);
+            color: var(--white);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .waitlist-form input:focus {
+            border-color: var(--gold);
+        }
+        
+        .waitlist-form input::placeholder {
+            color: var(--gray);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.875rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .step, .step:nth-child(even) {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .worth-breakdown {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="logo">The Memory Bank</div>
+        
+        <h1>Your Life Has <span>Value</span></h1>
+        
+        <p>Net worth only counts your money. But what about the concert where you met your best friend? The trip that changed your perspective? The game you'll never forget?</p>
+        
+        <div class="worth-display">
+            <div class="worth-label">Your Life Worth</div>
+            <div class="worth-value">$847,200</div>
+            <div class="worth-breakdown">
+                <span>💰 Financial: $312,000</span>
+                <span>✨ Experiences: $535,200</span>
+            </div>
+        </div>
+        
+        <div class="cta-group">
+            <a href="#waitlist" class="btn btn-primary">Join the Waitlist</a>
+            <a href="#how" class="btn btn-secondary">See How It Works</a>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Value Your Moments</h3>
+                <p>That championship game, that first trip abroad, that concert — they're worth more than the ticket price. Our algorithm calculates the real value of your experiences.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Connect Everything</h3>
+                <p>Link your financial accounts and crypto wallets. Collect experience NFTs from travel partners. See your complete Life Worth in one place.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Grow Your Worth</h3>
+                <p>Every experience you add increases your Life Worth. Stop thinking about spending — start thinking about investing in your life.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Share Your Story</h3>
+                <p>Your Life Worth is yours. Keep it private or share it with the world. Show people what you're really worth.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🪙</div>
+                <h3>Earn $LIFE Tokens</h3>
+                <p>Add experiences, refer friends, and engage with partners to earn tokens. Use them to unlock premium features and boost your valuations.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3>Partner Experiences</h3>
+                <p>Book through our partners and automatically receive experience NFTs that add to your Life Worth. Travel isn't spending — it's investing.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="how-it-works" id="how">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Three simple steps to discover your true Life Worth</p>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Add Your Experiences</h3>
+                    <p>Tell us about the moments that matter. Concerts, travels, milestones, games — anything that shaped who you are. We'll help you value them.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Connect Your Accounts</h3>
+                    <p>Link your bank accounts, investments, and crypto wallets. We'll combine your traditional net worth with your experience value.</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Watch Your Worth Grow</h3>
+                    <p>Every new experience adds to your Life Worth. Collect NFTs from partners, track your growth, and see the full picture of what you've built.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Latest Updates -->
+    <section class="latest-updates" style="padding: 4rem 2rem; background: var(--darker); text-align: center;">
+        <h2 class="section-title section-title-gold">Latest Updates</h2>
+        <p class="section-subtitle">See what we've been building at The Memory Bank</p>
+
+        <div class="updates-grid" style="
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        ">
+            <div class="update-card" style="
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.05);
+                border-radius: 12px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            ">
+                <h3 style="font-size: 1.15rem; color: var(--gold);">🚀 Instagram Launched!</h3>
+                <p style="color: var(--gray); font-size: 0.9rem;">Follow our journey, see behind-the-scenes, and connect with our community on Instagram. Profile picture and bio are live!</p>
+                <a href="https://www.instagram.com/memorybank_ai/" target="_blank" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-size: 0.85rem; width: fit-content; margin-top: 0.5rem;">Visit Profile</a>
+            </div>
+
+            <div class="update-card" style="
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.05);
+                border-radius: 12px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            ">
+                <h3 style="font-size: 1.15rem; color: var(--gold);">✨ Brand & Identity Defined</h3>
+                <p style="color: var(--gray); font-size: 0.9rem;">Our core brand, logo, and visual identity are finalized, setting the foundation for a consistent and impactful presence.</p>
+                <a href="projects/memory-bank/brand/brand-guide.html" target="_blank" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-size: 0.85rem; width: fit-content; margin-top: 0.5rem;">View Brand Guide</a>
+            </div>
+
+            <div class="update-card" style="
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.05);
+                border-radius: 12px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            ">
+                <h3 style="font-size: 1.15rem; color: var(--gold);">💡 App Mockups in Progress</h3>
+                <p style="color: var(--gray); font-size: 0.9rem;">We're actively designing intuitive user interfaces for key app features like the dashboard, onboarding, and experience detail views.</p>
+                <a href="projects/memory-bank/app-mockups/02-dashboard.html" target="_blank" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-size: 0.85rem; width: fit-content; margin-top: 0.5rem;">See Dashboard</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section" id="waitlist">
+        <h2>Ready to See Your True Worth?</h2>
+        <p>Join the waitlist. First 1,000 users get lifetime premium access.</p>
+        
+        <form class="waitlist-form" action="#" method="POST">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit" class="btn btn-primary">Get Early Access</button>
+        </form>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 The Memory Bank. Your life has value.</p>
+    </footer>
+</body>
+</html>

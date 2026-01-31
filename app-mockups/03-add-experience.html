@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Memory Bank - Add Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Add Experience Specific Styles */
+    .add-screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .add-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md) var(--space-lg);
+      padding-top: 60px;
+      background: var(--bg-primary);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .close-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+    }
+
+    .close-btn svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text-secondary);
+    }
+
+    .add-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .add-content {
+      flex: 1;
+      padding: var(--space-lg);
+      padding-bottom: 200px;
+    }
+
+    /* Category Selection */
+    .category-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-sm);
+    }
+
+    .category-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--bg-card);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .category-option:hover {
+      border-color: var(--text-muted);
+    }
+
+    .category-option.selected {
+      border-color: var(--gold-primary);
+      background: var(--gold-subtle);
+    }
+
+    .category-emoji {
+      font-size: 1.75rem;
+    }
+
+    .category-name {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .category-option.selected .category-name {
+      color: var(--gold-primary);
+    }
+
+    /* Form Groups */
+    .form-group {
+      margin-bottom: var(--space-lg);
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 0 3px var(--gold-subtle);
+    }
+
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+
+    /* Photo Upload */
+    .photo-upload {
+      display: flex;
+      gap: var(--space-md);
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+    }
+
+    .photo-item {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-tertiary);
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-add {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: var(--bg-tertiary);
+      border: 2px dashed var(--border-subtle);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .photo-add:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+    }
+
+    .photo-add svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .photo-add span {
+      font-size: 0.625rem;
+    }
+
+    /* People Tags */
+    .people-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .person-tag {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-md);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+    }
+
+    .person-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--cat-travel), var(--cat-concerts));
+    }
+
+    .person-remove {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .add-person {
+      padding: var(--space-xs) var(--space-md);
+      background: var(--gold-subtle);
+      border: 1px dashed var(--border-gold);
+      border-radius: var(--radius-full);
+      color: var(--gold-primary);
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    /* AI Valuation Card */
+    .valuation-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      margin: var(--space-xl) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .valuation-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, var(--gold-subtle) 0%, transparent 50%);
+    }
+
+    .valuation-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+      position: relative;
+    }
+
+    .ai-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--gold-subtle);
+      border-radius: var(--radius-full);
+      font-size: 0.625rem;
+      font-weight: 600;
+      color: var(--gold-primary);
+    }
+
+    .valuation-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .valuation-amount {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    .valuation-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border-subtle);
+      position: relative;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    .breakdown-label {
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .breakdown-label svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .breakdown-value {
+      font-weight: 500;
+    }
+
+    .breakdown-value.positive {
+      color: var(--gold-primary);
+    }
+
+    /* Personal Multiplier */
+    .multiplier-section {
+      margin-top: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      position: relative;
+    }
+
+    .multiplier-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .multiplier-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .multiplier-value {
+      font-weight: 600;
+      color: var(--gold-primary);
+    }
+
+    .multiplier-slider {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--bg-primary);
+      border-radius: var(--radius-full);
+      outline: none;
+    }
+
+    .multiplier-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--gold-gradient);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      box-shadow: var(--shadow-gold);
+    }
+
+    .multiplier-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--space-sm);
+      font-size: 0.625rem;
+      color: var(--text-muted);
+    }
+
+    /* Bottom Actions */
+    .bottom-actions {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      background: linear-gradient(to top, var(--bg-primary) 80%, transparent);
+      padding: var(--space-xl) var(--space-lg);
+      padding-bottom: calc(var(--space-xl) + 20px);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    .btn-save {
+      flex: 2;
+    }
+
+    .btn-share {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .btn-share svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Hints */
+    .hint {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--gold-subtle);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-md);
+      margin-top: var(--space-md);
+    }
+
+    .hint-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--gold-primary);
+      flex-shrink: 0;
+    }
+
+    .hint-text {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="add-screen">
+      <!-- Header -->
+      <header class="add-header">
+        <a href="02-dashboard.html" class="close-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </a>
+        <h1 class="add-title">Add Experience</h1>
+        <div style="width: 40px;"></div>
+      </header>
+
+      <!-- Content -->
+      <div class="add-content">
+        <!-- Category Selection -->
+        <div class="category-section">
+          <div class="section-label">What type of experience?</div>
+          <div class="category-grid">
+            <div class="category-option selected">
+              <span class="category-emoji">✈️</span>
+              <span class="category-name">Travel</span>
+            </div>
+            <div class="category-option">
+              <span class="category-emoji">🎸</span>
+              <span class="category-name">Concerts</span>
+            </div>
+            <div class="category-option">
+              <span class="category-emoji">⚽</span>
+              <span class="category-name">Sports</span>
+            </div>
+            <div class="category-option">
+              <span class="category-emoji">🎓</span>
+              <span class="category-name">Milestones</span>
+            </div>
+            <div class="category-option">
+              <span class="category-emoji">🍽️</span>
+              <span class="category-name">Dining</span>
+            </div>
+            <div class="category-option">
+              <span class="category-emoji">🎭</span>
+              <span class="category-name">Culture</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Title -->
+        <div class="form-group">
+          <label class="form-label">Experience Title</label>
+          <input type="text" class="form-input" placeholder="What did you do?" value="Bali Surf Trip">
+        </div>
+
+        <!-- Date & Location -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-input" value="2024-01-15">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Duration</label>
+            <select class="form-input">
+              <option>1 day</option>
+              <option>2-3 days</option>
+              <option selected>1 week</option>
+              <option>2 weeks</option>
+              <option>1 month+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Location</label>
+          <input type="text" class="form-input" placeholder="Where was it?" value="Canggu, Bali, Indonesia">
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label class="form-label">Tell us about it</label>
+          <textarea class="form-input form-textarea" placeholder="What made this experience special?">Learned to surf at Batu Bolong Beach. Woke up at 5am every day for sunrise sessions. Met incredible people from around the world at the hostel. The perfect mix of adventure and relaxation.</textarea>
+        </div>
+
+        <!-- Photos -->
+        <div class="form-group">
+          <label class="form-label">Photos</label>
+          <div class="photo-upload">
+            <div class="photo-item">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect fill='%231a1a25' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' fill='%236a6a7a' font-size='24' text-anchor='middle' dy='.3em'%3E🌊%3C/text%3E%3C/svg%3E" alt="Photo 1">
+            </div>
+            <div class="photo-item">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect fill='%231a1a25' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' fill='%236a6a7a' font-size='24' text-anchor='middle' dy='.3em'%3E🏄%3C/text%3E%3C/svg%3E" alt="Photo 2">
+            </div>
+            <div class="photo-item">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect fill='%231a1a25' width='80' height='80'/%3E%3Ctext x='50%25' y='50%25' fill='%236a6a7a' font-size='24' text-anchor='middle' dy='.3em'%3E🌅%3C/text%3E%3C/svg%3E" alt="Photo 3">
+            </div>
+            <div class="photo-add">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              <span>Add</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Who Was There -->
+        <div class="form-group">
+          <label class="form-label">Who was there?</label>
+          <div class="people-tags">
+            <div class="person-tag">
+              <div class="person-avatar"></div>
+              <span>Alex</span>
+              <span class="person-remove">×</span>
+            </div>
+            <div class="person-tag">
+              <div class="person-avatar" style="background: linear-gradient(135deg, var(--cat-sports), var(--cat-milestones));"></div>
+              <span>Jamie</span>
+              <span class="person-remove">×</span>
+            </div>
+            <div class="add-person">+ Add person</div>
+          </div>
+        </div>
+
+        <!-- AI Valuation Card -->
+        <div class="valuation-card">
+          <div class="valuation-header">
+            <div class="ai-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              AI VALUED
+            </div>
+          </div>
+          <div class="valuation-label">Estimated Experience Value</div>
+          <div class="valuation-amount">$3,850</div>
+          
+          <div class="valuation-breakdown">
+            <div class="breakdown-row">
+              <span class="breakdown-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                Base (1 week travel)
+              </span>
+              <span class="breakdown-value">$2,200</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="10" r="3"/>
+                  <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/>
+                </svg>
+                Bali (Popular destination)
+              </span>
+              <span class="breakdown-value positive">+$400</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+                New skill (Surfing)
+              </span>
+              <span class="breakdown-value positive">+$600</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                Shared experience
+              </span>
+              <span class="breakdown-value positive">+$250</span>
+            </div>
+            <div class="breakdown-row">
+              <span class="breakdown-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                Emotional depth
+              </span>
+              <span class="breakdown-value positive">+$400</span>
+            </div>
+          </div>
+
+          <!-- Personal Multiplier -->
+          <div class="multiplier-section">
+            <div class="multiplier-header">
+              <span class="multiplier-label">Personal Significance</span>
+              <span class="multiplier-value">1.0x</span>
+            </div>
+            <input type="range" class="multiplier-slider" min="0.5" max="2" step="0.1" value="1">
+            <div class="multiplier-labels">
+              <span>0.5x</span>
+              <span>1.0x</span>
+              <span>1.5x</span>
+              <span>2.0x</span>
+            </div>
+          </div>
+
+          <div class="hint">
+            <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <span class="hint-text">Adjust the multiplier if this experience was more or less significant to you than our AI estimated.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Actions -->
+      <div class="bottom-actions">
+        <div class="action-buttons">
+          <button class="btn btn-primary btn-save btn-lg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Save Experience
+          </button>
+          <button class="btn-share">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="18" cy="5" r="3"/>
+              <circle cx="6" cy="12" r="3"/>
+              <circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Category selection
+    document.querySelectorAll('.category-option').forEach(option => {
+      option.addEventListener('click', () => {
+        document.querySelectorAll('.category-option').forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+      });
+    });
+
+    // Multiplier slider
+    const slider = document.querySelector('.multiplier-slider');
+    const multiplierValue = document.querySelector('.multiplier-value');
+    slider.addEventListener('input', () => {
+      multiplierValue.textContent = slider.value + 'x';
+    });
+  </script>
+</body>
+</html>

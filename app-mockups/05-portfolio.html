@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Memory Bank - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Portfolio Specific Styles */
+    .portfolio-header {
+      padding: var(--space-lg);
+      padding-top: 60px;
+    }
+
+    .header-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .header-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* Portfolio Tabs */
+    .portfolio-tabs {
+      display: flex;
+      gap: var(--space-sm);
+      padding: 0 var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .portfolio-tab {
+      flex: 1;
+      padding: var(--space-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .portfolio-tab.active {
+      border-color: var(--gold-primary);
+      background: var(--gold-subtle);
+    }
+
+    .portfolio-tab-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .portfolio-tab.active .portfolio-tab-value {
+      color: var(--gold-primary);
+    }
+
+    .portfolio-tab-label {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Main Worth Display */
+    .main-worth {
+      text-align: center;
+      padding: var(--space-xl) var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .worth-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+    }
+
+    .worth-value {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .worth-change {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-top: var(--space-sm);
+      padding: var(--space-xs) var(--space-md);
+      background: var(--success-bg);
+      border-radius: var(--radius-full);
+      color: var(--success);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    /* Chart Section */
+    .chart-section {
+      padding: 0 var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .chart-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: var(--space-lg);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .chart-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .period-selector {
+      display: flex;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      padding: 2px;
+    }
+
+    .period-btn {
+      padding: var(--space-xs) var(--space-sm);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .period-btn.active {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .chart-container {
+      height: 180px;
+      position: relative;
+    }
+
+    .chart-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .chart-line {
+      fill: none;
+      stroke: var(--gold-primary);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+    }
+
+    .chart-line-secondary {
+      fill: none;
+      stroke: #22D3EE;
+      stroke-width: 2;
+      stroke-linecap: round;
+      opacity: 0.7;
+    }
+
+    .chart-area {
+      fill: url(#goldGradient);
+      opacity: 0.2;
+    }
+
+    .chart-legend {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin-top: var(--space-md);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-full);
+    }
+
+    .legend-dot.gold { background: var(--gold-primary); }
+    .legend-dot.cyan { background: #22D3EE; }
+
+    /* Breakdown Section */
+    .breakdown-section {
+      padding: 0 var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .section-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .breakdown-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: var(--space-md);
+    }
+
+    .breakdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .breakdown-header-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .breakdown-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      font-size: 1.25rem;
+    }
+
+    .breakdown-header-title {
+      font-weight: 600;
+    }
+
+    .breakdown-header-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .breakdown-header-value {
+      text-align: right;
+    }
+
+    .breakdown-value-amount {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .breakdown-value-change {
+      font-size: 0.75rem;
+      color: var(--success);
+    }
+
+    .breakdown-items {
+      padding: var(--space-md);
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      transition: background 0.2s ease;
+    }
+
+    .breakdown-item:hover {
+      background: var(--bg-tertiary);
+    }
+
+    .breakdown-item-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .item-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      background: var(--bg-tertiary);
+    }
+
+    .item-name {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .item-detail {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .breakdown-item-right {
+      text-align: right;
+    }
+
+    .item-value {
+      font-weight: 600;
+    }
+
+    .item-percent {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Category Donut */
+    .category-section {
+      padding: 0 var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .category-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .category-header {
+      margin-bottom: var(--space-lg);
+    }
+
+    .category-title {
+      font-weight: 600;
+    }
+
+    .category-content {
+      display: flex;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .donut-container {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .donut-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .donut-segment {
+      fill: none;
+      stroke-width: 20;
+    }
+
+    .donut-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .donut-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .donut-label {
+      font-size: 0.625rem;
+      color: var(--text-muted);
+    }
+
+    .category-legend {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .category-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    .category-name {
+      flex: 1;
+      font-size: 0.8125rem;
+    }
+
+    .category-value {
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    /* Top Experiences */
+    .top-experiences {
+      padding: 0 var(--space-lg);
+      margin-bottom: 100px;
+    }
+
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .experience-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .experience-item:hover {
+      border-color: var(--gold-primary);
+    }
+
+    .experience-rank {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gold-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+
+    .experience-rank.top {
+      background: var(--gold-gradient);
+      color: #000;
+    }
+
+    .experience-emoji {
+      font-size: 1.5rem;
+    }
+
+    .experience-info {
+      flex: 1;
+    }
+
+    .experience-name {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .experience-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .experience-value {
+      font-weight: 600;
+      color: var(--gold-primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <!-- Portfolio Header -->
+    <div class="portfolio-header">
+      <h1 class="header-title">Your Portfolio</h1>
+      <p class="header-subtitle">Complete breakdown of your Life Worth</p>
+    </div>
+
+    <!-- Portfolio Tabs -->
+    <div class="portfolio-tabs">
+      <div class="portfolio-tab active">
+        <div class="portfolio-tab-value">$247,850</div>
+        <div class="portfolio-tab-label">Total Worth</div>
+      </div>
+      <div class="portfolio-tab">
+        <div class="portfolio-tab-value">$189,000</div>
+        <div class="portfolio-tab-label">Financial</div>
+      </div>
+      <div class="portfolio-tab">
+        <div class="portfolio-tab-value">$58,850</div>
+        <div class="portfolio-tab-label">Experiences</div>
+      </div>
+    </div>
+
+    <!-- Main Worth Display -->
+    <div class="main-worth">
+      <div class="worth-label">Total Life Worth</div>
+      <div class="worth-value">$247,850</div>
+      <div class="worth-change">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+          <polyline points="17 6 23 6 23 12"></polyline>
+        </svg>
+        +$12,450 this month
+      </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="chart-section">
+      <div class="chart-card">
+        <div class="chart-header">
+          <span class="chart-title">Worth Over Time</span>
+          <div class="period-selector">
+            <button class="period-btn">1M</button>
+            <button class="period-btn">3M</button>
+            <button class="period-btn active">1Y</button>
+            <button class="period-btn">All</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <svg class="chart-svg" viewBox="0 0 300 150" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:0.3" />
+                <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:0" />
+              </linearGradient>
+            </defs>
+            <!-- Area fill -->
+            <path class="chart-area" d="M0,130 Q30,125 60,115 T120,95 T180,70 T240,50 T300,25 L300,150 L0,150 Z" />
+            <!-- Total Worth line (gold) -->
+            <path class="chart-line" d="M0,130 Q30,125 60,115 T120,95 T180,70 T240,50 T300,25" />
+            <!-- Experience Worth line (cyan) -->
+            <path class="chart-line-secondary" d="M0,140 Q30,138 60,135 T120,128 T180,118 T240,105 T300,90" />
+          </svg>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-dot gold"></div>
+            <span>Total Worth</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot cyan"></div>
+            <span>Experience Worth</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Breakdown Section -->
+    <div class="breakdown-section">
+      <div class="section-header">
+        <h2 class="section-title">Breakdown</h2>
+      </div>
+
+      <!-- Financial Breakdown -->
+      <div class="breakdown-card">
+        <div class="breakdown-header">
+          <div class="breakdown-header-left">
+            <div class="breakdown-icon">💰</div>
+            <div>
+              <div class="breakdown-header-title">Financial Assets</div>
+              <div class="breakdown-header-subtitle">Connected accounts</div>
+            </div>
+          </div>
+          <div class="breakdown-header-value">
+            <div class="breakdown-value-amount">$189,000</div>
+            <div class="breakdown-value-change">+2.3% this month</div>
+          </div>
+        </div>
+        <div class="breakdown-items">
+          <div class="breakdown-item">
+            <div class="breakdown-item-left">
+              <div class="item-icon">🏦</div>
+              <div>
+                <div class="item-name">Bank Accounts</div>
+                <div class="item-detail">Chase, Ally</div>
+              </div>
+            </div>
+            <div class="breakdown-item-right">
+              <div class="item-value">$45,200</div>
+              <div class="item-percent">23.9%</div>
+            </div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-item-left">
+              <div class="item-icon">📈</div>
+              <div>
+                <div class="item-name">Investments</div>
+                <div class="item-detail">Fidelity 401k, Robinhood</div>
+              </div>
+            </div>
+            <div class="breakdown-item-right">
+              <div class="item-value">$98,500</div>
+              <div class="item-percent">52.1%</div>
+            </div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-item-left">
+              <div class="item-icon">🪙</div>
+              <div>
+                <div class="item-name">Crypto</div>
+                <div class="item-detail">Coinbase wallet</div>
+              </div>
+            </div>
+            <div class="breakdown-item-right">
+              <div class="item-value">$45,300</div>
+              <div class="item-percent">24.0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience Breakdown -->
+      <div class="breakdown-card">
+        <div class="breakdown-header">
+          <div class="breakdown-header-left">
+            <div class="breakdown-icon">⭐</div>
+            <div>
+              <div class="breakdown-header-title">Experience Worth</div>
+              <div class="breakdown-header-subtitle">47 memories logged</div>
+            </div>
+          </div>
+          <div class="breakdown-header-value">
+            <div class="breakdown-value-amount" style="color: var(--gold-primary);">$58,850</div>
+            <div class="breakdown-value-change">+$8,500 this month</div>
+          </div>
+        </div>
+        <div class="breakdown-items">
+          <div class="breakdown-item">
+            <div class="breakdown-item-left">
+              <div class="item-icon">🎵</div>
+              <div>
+                <div class="item-name">Concerts & Events</div>
+                <div class="item-detail">23 experiences</div>
+              </div>
+            </div>
+            <div class="breakdown-item-right">
+              <div class="item-value">$24,200</div>
+              <div class="item-percent">41.1%</div>
+            </div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-item-left">
+              <div class="item-icon">✈️</div>
+              <div>
+                <div class="item-name">Travel</div>
+                <div class="item-detail">12 trips</div>
+              </div>
+            </div>
+            <div class="breakdown-item-right">
+              <div class="item-value">$18,650</div>
+              <div class="item-percent">31.7%</div>
+            </div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-item-left">
+              <div class="item-icon">⚽</div>
+              <div>
+                <div class="item-name">Sports</div>
+                <div class="item-detail">8 games</div>
+              </div>
+            </div>
+            <div class="breakdown-item-right">
+              <div class="item-value">$12,400</div>
+              <div class="item-percent">21.1%</div>
+            </div>
+          </div>
+          <div class="breakdown-item">
+            <div class="breakdown-item-left">
+              <div class="item-icon">🎓</div>
+              <div>
+                <div class="item-name">Milestones</div>
+                <div class="item-detail">4 life events</div>
+              </div>
+            </div>
+            <div class="breakdown-item-right">
+              <div class="item-value">$3,600</div>
+              <div class="item-percent">6.1%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Donut -->
+    <div class="category-section">
+      <div class="category-card">
+        <div class="category-header">
+          <h3 class="category-title">Experience Categories</h3>
+        </div>
+        <div class="category-content">
+          <div class="donut-container">
+            <svg class="donut-svg" viewBox="0 0 100 100">
+              <!-- Concerts 41.1% -->
+              <circle class="donut-segment" cx="50" cy="50" r="40" 
+                      stroke="#EC4899" stroke-dasharray="103 251" stroke-dashoffset="0"/>
+              <!-- Travel 31.7% -->
+              <circle class="donut-segment" cx="50" cy="50" r="40" 
+                      stroke="#22D3EE" stroke-dasharray="79 251" stroke-dashoffset="-103"/>
+              <!-- Sports 21.1% -->
+              <circle class="donut-segment" cx="50" cy="50" r="40" 
+                      stroke="#F59E0B" stroke-dasharray="53 251" stroke-dashoffset="-182"/>
+              <!-- Milestones 6.1% -->
+              <circle class="donut-segment" cx="50" cy="50" r="40" 
+                      stroke="#A855F7" stroke-dasharray="16 251" stroke-dashoffset="-235"/>
+            </svg>
+            <div class="donut-center">
+              <div class="donut-value">47</div>
+              <div class="donut-label">MEMORIES</div>
+            </div>
+          </div>
+          <div class="category-legend">
+            <div class="category-item">
+              <div class="category-dot" style="background: #EC4899;"></div>
+              <span class="category-name">Concerts</span>
+              <span class="category-value">41%</span>
+            </div>
+            <div class="category-item">
+              <div class="category-dot" style="background: #22D3EE;"></div>
+              <span class="category-name">Travel</span>
+              <span class="category-value">32%</span>
+            </div>
+            <div class="category-item">
+              <div class="category-dot" style="background: #F59E0B;"></div>
+              <span class="category-name">Sports</span>
+              <span class="category-value">21%</span>
+            </div>
+            <div class="category-item">
+              <div class="category-dot" style="background: #A855F7;"></div>
+              <span class="category-name">Milestones</span>
+              <span class="category-value">6%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Experiences -->
+    <div class="top-experiences">
+      <div class="section-header">
+        <h2 class="section-title">Top Experiences</h2>
+      </div>
+      <div class="experience-list">
+        <a href="04-experience-detail.html" class="experience-item">
+          <div class="experience-rank top">#1</div>
+          <div class="experience-emoji">🎓</div>
+          <div class="experience-info">
+            <div class="experience-name">MBA Graduation</div>
+            <div class="experience-meta">Stanford • Jun 2023</div>
+          </div>
+          <div class="experience-value">$12,000</div>
+        </a>
+        <a href="04-experience-detail.html" class="experience-item">
+          <div class="experience-rank">#2</div>
+          <div class="experience-emoji">⚽</div>
+          <div class="experience-info">
+            <div class="experience-name">World Cup Final</div>
+            <div class="experience-meta">Qatar • Dec 2022</div>
+          </div>
+          <div class="experience-value">$8,500</div>
+        </a>
+        <a href="04-experience-detail.html" class="experience-item">
+          <div class="experience-rank">#3</div>
+          <div class="experience-emoji">🎤</div>
+          <div class="experience-info">
+            <div class="experience-name">Taylor Swift Eras Tour</div>
+            <div class="experience-meta">SoFi Stadium • Jan 2024</div>
+          </div>
+          <div class="experience-value">$6,200</div>
+        </a>
+        <a href="04-experience-detail.html" class="experience-item">
+          <div class="experience-rank">#4</div>
+          <div class="experience-emoji">✈️</div>
+          <div class="experience-info">
+            <div class="experience-name">Anniversary in Paris</div>
+            <div class="experience-meta">7 days • Nov 2023</div>
+          </div>
+          <div class="experience-value">$4,850</div>
+        </a>
+        <a href="04-experience-detail.html" class="experience-item">
+          <div class="experience-rank">#5</div>
+          <div class="experience-emoji">🏀</div>
+          <div class="experience-info">
+            <div class="experience-name">NBA Finals Game 7</div>
+            <div class="experience-meta">Boston • Jun 2022</div>
+          </div>
+          <div class="experience-value">$3,800</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <a href="02-dashboard.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Home</span>
+      </a>
+      <a href="05-portfolio.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        <span>Portfolio</span>
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <span>Explore</span>
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Profile</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>
