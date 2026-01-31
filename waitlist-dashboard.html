@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Bank — Waitlist Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BC;
+            --dark: #0D0D0D;
+            --darker: #050505;
+            --gray: #888;
+            --white: #FAFAFA;
+            --green: #22C55E;
+            --blue: #3B82F6;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--darker);
+            color: var(--white);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .last-updated {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-card.primary {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card:not(.primary) .stat-value {
+            color: var(--white);
+            background: none;
+            -webkit-text-fill-color: var(--white);
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Chart Section */
+        .chart-section {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-placeholder {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+        }
+        
+        .bar {
+            width: 60px;
+            background: linear-gradient(180deg, var(--gold) 0%, rgba(212, 175, 55, 0.3) 100%);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .bar:hover {
+            filter: brightness(1.2);
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--gray);
+            white-space: nowrap;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+        
+        /* Signups Table */
+        .signups-section {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        
+        .signups-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .signups-table th {
+            text-align: left;
+            padding: 1rem;
+            color: var(--gray);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .signups-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .signups-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .signups-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .email-cell {
+            font-weight: 500;
+        }
+        
+        .date-cell {
+            color: var(--gray);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+        }
+        
+        /* Milestone */
+        .milestone {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+        }
+        
+        .milestone-progress {
+            flex: 1;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .milestone-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .milestone-text {
+            font-size: 0.875rem;
+            color: var(--gray);
+            white-space: nowrap;
+        }
+        
+        .milestone-text strong {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Memory Bank Waitlist</div>
+            <div class="last-updated">Last updated: <span id="lastUpdated">Jan 31, 2026 — 7:10 AM PST</span></div>
+        </header>
+        
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card primary">
+                <div class="stat-value" id="totalSignups">1</div>
+                <div class="stat-label">Total Signups</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="todaySignups">1</div>
+                <div class="stat-label">Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="weekSignups">1</div>
+                <div class="stat-label">This Week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="conversionRate">—</div>
+                <div class="stat-label">Conversion Rate</div>
+            </div>
+        </div>
+        
+        <!-- Milestone -->
+        <div class="chart-section">
+            <h2 class="section-title">🎯 Next Milestone: 100 Signups</h2>
+            <div class="milestone">
+                <div class="milestone-progress">
+                    <div class="milestone-bar" id="milestoneBar" style="width: 1%;"></div>
+                </div>
+                <div class="milestone-text"><strong id="milestoneCount">1</strong> / 100</div>
+            </div>
+        </div>
+        
+        <!-- Chart -->
+        <div class="chart-section">
+            <h2 class="section-title">📈 Daily Signups</h2>
+            <div class="chart-placeholder" id="chart">
+                <div class="bar" style="height: 100%;">
+                    <span class="bar-value">1</span>
+                    <span class="bar-label">Jan 31</span>
+                </div>
+                <!-- More bars will be added as data grows -->
+            </div>
+        </div>
+        
+        <!-- Recent Signups -->
+        <div class="signups-section">
+            <h2 class="section-title">📋 Recent Signups</h2>
+            <table class="signups-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="signupsList">
+                    <tr>
+                        <td>1</td>
+                        <td class="email-cell">dugadams44@gmail.com</td>
+                        <td class="date-cell">Jan 31, 2026 — 7:10 AM</td>
+                        <td><span class="badge">✓ Confirmed</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
