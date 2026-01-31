@@ -27,7 +27,7 @@
 - Wealth management platforms desperate for differentiation
 - Financial wellness is a $1.5B software category growing 30% YoY
 
-**Founder Advantage:** Currently at Morgan Stanley with direct access to wealth management decision-makers, deep understanding of HNW client psychology, and credibility with institutional investors.
+**Founder Advantage:** Deep understanding of consumer psychology around life experiences and personal legacy, with credibility in technology and product development.
 
 ---
 
@@ -405,7 +405,7 @@ We operate at the intersection of three massive markets:
 **Objective:** Close 15 launch partners
 
 **Tactics:**
-1. **Founder network** — Morgan Stanley contacts for warm intros
+1. **Founder network** — Professional contacts for warm intros
 2. **Industry events** — Skift Forum, PhocusWire, Money 20/20
 3. **Case study development** — Pilot results from 3 design partners
 4. **Outbound sales** — 1 dedicated BD hire
@@ -422,7 +422,7 @@ We operate at the intersection of three massive markets:
 **Objective:** Land 3 financial institution customers
 
 **Tactics:**
-1. **Morgan Stanley pilot** — Internal advocacy for pilot program
+1. **Enterprise pilots** — Build relationships with target institutions
 2. **Wealth management conferences** — T3, Wealth Stack
 3. **Compliance-first messaging** — SOC 2, data security emphasis
 4. **Published research** — "Life Worth" as wealth planning framework
@@ -435,7 +435,7 @@ We operate at the intersection of three massive markets:
 ## Current (Founder)
 
 **[Founder Name]** — CEO
-- Current: Associate/VP at Morgan Stanley [Wealth Management]
+- Current: Technology entrepreneur
 - Background: [Finance degree, relevant experience]
 - Superpower: Understands HNW client psychology, institutional sales cycles
 - Role: Vision, fundraising, enterprise BD
@@ -517,7 +517,7 @@ We operate at the intersection of three massive markets:
 ## Why Invest Now?
 
 1. **Market timing** — Mint's death created a hole; experience economy is peaking
-2. **Founder-market fit** — Morgan Stanley access for enterprise deals
+2. **Founder-market fit** — Deep understanding of consumer psychology and enterprise partnerships
 3. **Category creation** — "Life Worth" is unowned; first mover defines it
 4. **Multiple revenue streams** — Not dependent on single model
 5. **Exit paths** — Acquirable by fintech, wealth, travel giants
