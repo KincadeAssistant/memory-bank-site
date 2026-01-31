@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Memory Bank — Your Life Has Value</title>
-    <meta name="description" content="Track your life's true worth. Memory Bank combines your financial assets with the experiences that shaped you.">
-    <link rel="canonical" href="https://memorybank.ai">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -327,11 +325,6 @@
             border-top: 1px solid rgba(255,255,255,0.05);
         }
         
-        footer a {
-            color: var(--gold);
-            text-decoration: none;
-        }
-        
         /* Responsive */
         @media (max-width: 768px) {
             .step, .step:nth-child(even) {
@@ -353,7 +346,7 @@
         
         <h1>Your Life Has <span>Value</span></h1>
         
-        <p>Net worth only counts your money. But what about the concert where you met your best friend? The trip that changed your perspective? The game you'll never forget?</p>
+        <p>Most wealth trackers only show your net worth. But what if net worth includes more than money? Like the concert where you met your best friend. The trip that opened your mind. The game that became legend. Your memories have value — it's time to track your Life Worth.</p>
         
         <div class="worth-display">
             <div class="worth-label">Your Life Worth</div>
@@ -382,7 +375,7 @@
             <div class="feature-card">
                 <div class="feature-icon">🔗</div>
                 <h3>Connect Everything</h3>
-                <p>Link your financial accounts and crypto wallets. Collect experience NFTs from travel partners. See your complete Life Worth in one place.</p>
+                <p>Securely sync with your financial institutions and crypto wallets. Your data stays with them — we just display your complete Life Worth in one place.</p>
             </div>
             
             <div class="feature-card">
@@ -429,7 +422,7 @@
                 <div class="step-number">2</div>
                 <div class="step-content">
                     <h3>Connect Your Accounts</h3>
-                    <p>Link your bank accounts, investments, and crypto wallets. We'll combine your traditional net worth with your experience value.</p>
+                    <p>Securely sync with your banks, investments, and crypto wallets. Your data stays with your institutions — we never store it.</p>
                 </div>
             </div>
             
@@ -443,23 +436,76 @@
         </div>
     </section>
     
+    <!-- Latest Updates -->
+    <section class="latest-updates" style="padding: 4rem 2rem; background: var(--darker); text-align: center;">
+        <h2 class="section-title section-title-gold">Latest Updates</h2>
+        <p class="section-subtitle">See what we've been building at The Memory Bank</p>
+
+        <div class="updates-grid" style="
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        ">
+            <div class="update-card" style="
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.05);
+                border-radius: 12px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            ">
+                <h3 style="font-size: 1.15rem; color: var(--gold);">🚀 Instagram Launched!</h3>
+                <p style="color: var(--gray); font-size: 0.9rem;">Follow our journey, see behind-the-scenes, and connect with our community on Instagram. Profile picture and bio are live!</p>
+                <a href="https://www.instagram.com/memorybank_ai/" target="_blank" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-size: 0.85rem; width: fit-content; margin-top: 0.5rem;">Visit Profile</a>
+            </div>
+
+            <div class="update-card" style="
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.05);
+                border-radius: 12px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            ">
+                <h3 style="font-size: 1.15rem; color: var(--gold);">✨ Brand & Identity Defined</h3>
+                <p style="color: var(--gray); font-size: 0.9rem;">Our core brand, logo, and visual identity are finalized, setting the foundation for a consistent and impactful presence.</p>
+                <a href="projects/memory-bank/brand/brand-guide.html" target="_blank" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-size: 0.85rem; width: fit-content; margin-top: 0.5rem;">View Brand Guide</a>
+            </div>
+
+            <div class="update-card" style="
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.05);
+                border-radius: 12px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            ">
+                <h3 style="font-size: 1.15rem; color: var(--gold);">💡 App Mockups in Progress</h3>
+                <p style="color: var(--gray); font-size: 0.9rem;">We're actively designing intuitive user interfaces for key app features like the dashboard, onboarding, and experience detail views.</p>
+                <a href="projects/memory-bank/app-mockups/02-dashboard.html" target="_blank" class="btn btn-secondary" style="padding: 0.75rem 1.5rem; font-size: 0.85rem; width: fit-content; margin-top: 0.5rem;">See Dashboard</a>
+            </div>
+        </div>
+    </section>
+    
     <!-- CTA Section -->
     <section class="cta-section" id="waitlist">
         <h2>Ready to See Your True Worth?</h2>
-        <p>Join the waitlist. First 1,000 users get lifetime premium access.</p>
+        <p>Join the waitlist for early access.</p>
         
-        <form class="waitlist-form" action="https://formspree.io/kincade.assistant@gmail.com" method="POST">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <input type="hidden" name="_subject" value="New Memory Bank Waitlist Signup!">
-            <input type="hidden" name="_next" value="https://memorybank.ai?thanks=1">
-            <button type="submit" class="btn btn-primary">Get Early Access</button>
-        </form>
+        <div class="waitlist-form">
+            <a href="https://tally.so/r/jaPQ61" target="_blank" class="btn btn-primary" style="text-decoration: none;">Join the Waitlist</a>
+        </div>
     </section>
     
     <!-- Footer -->
     <footer>
         <p>© 2026 The Memory Bank. Your life has value.</p>
-        <p style="margin-top: 0.5rem;"><a href="https://instagram.com/memorybank_ai" target="_blank">@memorybank_ai</a></p>
     </footer>
 </body>
 </html>
